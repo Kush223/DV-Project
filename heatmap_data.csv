@@ -1,0 +1,228 @@
+index,location,timestamp,num_transactions
+0,Abila Zacharo,2014-01-06,3
+1,Abila Zacharo,2014-01-07,4
+2,Abila Zacharo,2014-01-08,5
+3,Abila Zacharo,2014-01-09,4
+4,Abila Zacharo,2014-01-10,7
+5,Abila Zacharo,2014-01-11,3
+6,Abila Zacharo,2014-01-13,5
+7,Abila Zacharo,2014-01-14,5
+8,Abila Zacharo,2014-01-15,4
+9,Abila Zacharo,2014-01-16,4
+10,Abila Zacharo,2014-01-17,2
+11,Abila Zacharo,2014-01-18,3
+12,Ahaggo Museum,2014-01-11,1
+13,Ahaggo Museum,2014-01-19,1
+14,Albert's Fine Clothing,2014-01-06,1
+15,Albert's Fine Clothing,2014-01-07,2
+16,Albert's Fine Clothing,2014-01-08,1
+17,Albert's Fine Clothing,2014-01-09,1
+18,Albert's Fine Clothing,2014-01-10,1
+19,Albert's Fine Clothing,2014-01-11,1
+20,Albert's Fine Clothing,2014-01-12,2
+21,Albert's Fine Clothing,2014-01-13,1
+22,Albert's Fine Clothing,2014-01-14,2
+23,Albert's Fine Clothing,2014-01-15,1
+24,Albert's Fine Clothing,2014-01-16,2
+25,Albert's Fine Clothing,2014-01-17,1
+26,Albert's Fine Clothing,2014-01-18,2
+27,Albert's Fine Clothing,2014-01-19,2
+28,Bean There Done That,2014-01-06,5
+29,Bean There Done That,2014-01-07,4
+30,Bean There Done That,2014-01-08,4
+31,Bean There Done That,2014-01-09,3
+32,Bean There Done That,2014-01-10,5
+33,Bean There Done That,2014-01-13,7
+34,Bean There Done That,2014-01-14,5
+35,Bean There Done That,2014-01-15,4
+36,Bean There Done That,2014-01-16,5
+37,Bean There Done That,2014-01-17,5
+38,Brew've Been Served,2014-01-06,11
+39,Brew've Been Served,2014-01-07,10
+40,Brew've Been Served,2014-01-08,11
+41,Brew've Been Served,2014-01-09,8
+42,Brew've Been Served,2014-01-10,11
+43,Brew've Been Served,2014-01-13,9
+44,Brew've Been Served,2014-01-14,10
+45,Brew've Been Served,2014-01-15,11
+46,Brew've Been Served,2014-01-16,9
+47,Brew've Been Served,2014-01-17,9
+48,Brewed Awakenings,2014-01-06,1
+49,Brewed Awakenings,2014-01-07,2
+50,Brewed Awakenings,2014-01-08,1
+51,Brewed Awakenings,2014-01-09,1
+52,Brewed Awakenings,2014-01-10,1
+53,Brewed Awakenings,2014-01-13,1
+54,Brewed Awakenings,2014-01-14,1
+55,Brewed Awakenings,2014-01-15,1
+56,Brewed Awakenings,2014-01-16,1
+57,Brewed Awakenings,2014-01-17,1
+58,Chostus Hotel,2014-01-08,1
+59,Chostus Hotel,2014-01-10,1
+60,Chostus Hotel,2014-01-14,1
+61,Chostus Hotel,2014-01-17,1
+62,Coffee Cameleon,2014-01-06,4
+63,Coffee Cameleon,2014-01-07,4
+64,Coffee Cameleon,2014-01-08,4
+65,Coffee Cameleon,2014-01-09,3
+66,Coffee Cameleon,2014-01-10,4
+67,Coffee Cameleon,2014-01-13,4
+68,Coffee Cameleon,2014-01-14,4
+69,Coffee Cameleon,2014-01-15,4
+70,Coffee Cameleon,2014-01-16,2
+71,Coffee Cameleon,2014-01-17,5
+72,Coffee Shack,2014-01-06,1
+73,Coffee Shack,2014-01-07,1
+74,Coffee Shack,2014-01-08,1
+75,Coffee Shack,2014-01-09,1
+76,Coffee Shack,2014-01-13,1
+77,Coffee Shack,2014-01-14,1
+78,Coffee Shack,2014-01-16,1
+79,Coffee Shack,2014-01-17,1
+80,Desafio Golf Course,2014-01-12,1
+81,Desafio Golf Course,2014-01-19,1
+82,Frank's Fuel,2014-01-08,1
+83,Frank's Fuel,2014-01-18,1
+84,Frydos Autosupply n' More,2014-01-06,5
+85,Frydos Autosupply n' More,2014-01-08,3
+86,Frydos Autosupply n' More,2014-01-09,3
+87,Frydos Autosupply n' More,2014-01-11,2
+88,Frydos Autosupply n' More,2014-01-12,1
+89,Frydos Autosupply n' More,2014-01-13,3
+90,Frydos Autosupply n' More,2014-01-14,2
+91,Frydos Autosupply n' More,2014-01-15,3
+92,Frydos Autosupply n' More,2014-01-16,2
+93,Frydos Autosupply n' More,2014-01-17,2
+94,Frydos Autosupply n' More,2014-01-18,5
+95,Frydos Autosupply n' More,2014-01-19,3
+96,Gelatogalore,2014-01-06,3
+97,Gelatogalore,2014-01-07,8
+98,Gelatogalore,2014-01-08,6
+99,Gelatogalore,2014-01-09,8
+100,Gelatogalore,2014-01-10,1
+101,Gelatogalore,2014-01-11,2
+102,Gelatogalore,2014-01-13,2
+103,Gelatogalore,2014-01-14,5
+104,Gelatogalore,2014-01-15,5
+105,Gelatogalore,2014-01-16,4
+106,Gelatogalore,2014-01-17,5
+107,Gelatogalore,2014-01-18,1
+108,Gelatogalore,2014-01-19,1
+109,General Grocer,2014-01-08,1
+110,General Grocer,2014-01-09,1
+111,General Grocer,2014-01-10,1
+112,General Grocer,2014-01-11,1
+113,General Grocer,2014-01-12,1
+114,General Grocer,2014-01-15,1
+115,General Grocer,2014-01-17,1
+116,General Grocer,2014-01-18,1
+117,General Grocer,2014-01-19,1
+118,Guy's Gyros,2014-01-06,8
+119,Guy's Gyros,2014-01-07,8
+120,Guy's Gyros,2014-01-08,7
+121,Guy's Gyros,2014-01-09,7
+122,Guy's Gyros,2014-01-10,11
+123,Guy's Gyros,2014-01-11,2
+124,Guy's Gyros,2014-01-12,3
+125,Guy's Gyros,2014-01-13,10
+126,Guy's Gyros,2014-01-14,9
+127,Guy's Gyros,2014-01-15,9
+128,Guy's Gyros,2014-01-16,8
+129,Guy's Gyros,2014-01-17,9
+130,Guy's Gyros,2014-01-18,5
+131,Guy's Gyros,2014-01-19,5
+132,Hallowed Grounds,2014-01-06,7
+133,Hallowed Grounds,2014-01-07,8
+134,Hallowed Grounds,2014-01-08,8
+135,Hallowed Grounds,2014-01-09,7
+136,Hallowed Grounds,2014-01-10,8
+137,Hallowed Grounds,2014-01-13,6
+138,Hallowed Grounds,2014-01-14,8
+139,Hallowed Grounds,2014-01-15,7
+140,Hallowed Grounds,2014-01-16,9
+141,Hallowed Grounds,2014-01-17,7
+142,Hippokampos,2014-01-06,10
+143,Hippokampos,2014-01-07,8
+144,Hippokampos,2014-01-08,9
+145,Hippokampos,2014-01-09,12
+146,Hippokampos,2014-01-10,7
+147,Hippokampos,2014-01-11,7
+148,Hippokampos,2014-01-12,8
+149,Hippokampos,2014-01-13,7
+150,Hippokampos,2014-01-14,6
+151,Hippokampos,2014-01-15,10
+152,Hippokampos,2014-01-16,12
+153,Hippokampos,2014-01-17,9
+154,Hippokampos,2014-01-18,7
+155,Hippokampos,2014-01-19,6
+156,Jack's Magical Beans,2014-01-06,3
+157,Jack's Magical Beans,2014-01-07,3
+158,Jack's Magical Beans,2014-01-08,3
+159,Jack's Magical Beans,2014-01-09,4
+160,Jack's Magical Beans,2014-01-10,3
+161,Jack's Magical Beans,2014-01-13,3
+162,Jack's Magical Beans,2014-01-14,1
+163,Jack's Magical Beans,2014-01-15,3
+164,Jack's Magical Beans,2014-01-16,3
+165,Jack's Magical Beans,2014-01-17,2
+166,Kalami Kafenion,2014-01-06,6
+167,Kalami Kafenion,2014-01-07,4
+168,Kalami Kafenion,2014-01-08,5
+169,Kalami Kafenion,2014-01-09,4
+170,Kalami Kafenion,2014-01-10,4
+171,Kalami Kafenion,2014-01-11,4
+172,Kalami Kafenion,2014-01-12,2
+173,Kalami Kafenion,2014-01-13,1
+174,Kalami Kafenion,2014-01-14,5
+175,Kalami Kafenion,2014-01-15,4
+176,Kalami Kafenion,2014-01-16,2
+177,Kalami Kafenion,2014-01-17,7
+178,Kalami Kafenion,2014-01-18,4
+179,Katerina’s Café,2014-01-06,17
+180,Katerina’s Café,2014-01-07,12
+181,Katerina’s Café,2014-01-08,13
+182,Katerina’s Café,2014-01-09,12
+183,Katerina’s Café,2014-01-10,9
+184,Katerina’s Café,2014-01-11,15
+185,Katerina’s Café,2014-01-12,10
+186,Katerina’s Café,2014-01-13,14
+187,Katerina’s Café,2014-01-14,12
+188,Katerina’s Café,2014-01-15,11
+189,Katerina’s Café,2014-01-16,12
+190,Katerina’s Café,2014-01-17,11
+191,Katerina’s Café,2014-01-18,16
+192,Katerina’s Café,2014-01-19,7
+193,Kronos Mart,2014-01-13,2
+194,Kronos Mart,2014-01-14,1
+195,Kronos Mart,2014-01-16,1
+196,Kronos Mart,2014-01-17,1
+197,Kronos Mart,2014-01-19,1
+198,Octavio's Office Supplies,2014-01-10,2
+199,Octavio's Office Supplies,2014-01-14,1
+200,Octavio's Office Supplies,2014-01-16,1
+201,Ouzeri Elian,2014-01-06,5
+202,Ouzeri Elian,2014-01-07,8
+203,Ouzeri Elian,2014-01-08,2
+204,Ouzeri Elian,2014-01-09,4
+205,Ouzeri Elian,2014-01-10,6
+206,Ouzeri Elian,2014-01-11,3
+207,Ouzeri Elian,2014-01-12,4
+208,Ouzeri Elian,2014-01-13,4
+209,Ouzeri Elian,2014-01-14,8
+210,Ouzeri Elian,2014-01-15,9
+211,Ouzeri Elian,2014-01-16,7
+212,Ouzeri Elian,2014-01-17,5
+213,Ouzeri Elian,2014-01-18,4
+214,Ouzeri Elian,2014-01-19,2
+215,Roberts and Sons,2014-01-11,1
+216,Roberts and Sons,2014-01-14,1
+217,Roberts and Sons,2014-01-16,1
+218,Roberts and Sons,2014-01-18,2
+219,Shoppers' Delight,2014-01-09,1
+220,Shoppers' Delight,2014-01-10,1
+221,Shoppers' Delight,2014-01-11,2
+222,Shoppers' Delight,2014-01-12,3
+223,Shoppers' Delight,2014-01-13,1
+224,Shoppers' Delight,2014-01-16,1
+225,Shoppers' Delight,2014-01-19,1
+226,U-Pump,2014-01-06,1

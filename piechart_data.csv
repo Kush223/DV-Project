@@ -1,0 +1,522 @@
+,location,day,CurrentEmploymentType,price
+0,Abila Zacharo,2014-01-06,Engineering,101.25999999999999
+1,Abila Zacharo,2014-01-06,Security,106.93
+2,Abila Zacharo,2014-01-07,Executive,95.77
+3,Abila Zacharo,2014-01-07,Security,98.30000000000001
+4,Abila Zacharo,2014-01-08,Engineering,103.43
+5,Abila Zacharo,2014-01-08,Executive,14.41
+6,Abila Zacharo,2014-01-09,Engineering,29.33
+7,Abila Zacharo,2014-01-09,Security,22.53
+8,Abila Zacharo,2014-01-10,Engineering,85.61
+9,Abila Zacharo,2014-01-10,Executive,113.33
+10,Abila Zacharo,2014-01-10,Information Technology,16.12
+11,Abila Zacharo,2014-01-10,Security,36.38
+12,Abila Zacharo,2014-01-11,Engineering,54.82
+13,Abila Zacharo,2014-01-11,Security,121.56
+14,Abila Zacharo,2014-01-13,Engineering,79.95
+15,Abila Zacharo,2014-01-13,Executive,11.99
+16,Abila Zacharo,2014-01-13,Information Technology,143.62
+17,Abila Zacharo,2014-01-13,Security,17.41
+18,Abila Zacharo,2014-01-14,Engineering,58.78
+19,Abila Zacharo,2014-01-14,Executive,31.09
+20,Abila Zacharo,2014-01-15,Executive,88.83
+21,Abila Zacharo,2014-01-15,Facilities,33.8
+22,Abila Zacharo,2014-01-15,Information Technology,24.53
+23,Abila Zacharo,2014-01-15,Security,46.82
+24,Abila Zacharo,2014-01-16,Engineering,36.02
+25,Abila Zacharo,2014-01-16,Facilities,31.31
+26,Abila Zacharo,2014-01-16,Security,93.64999999999999
+27,Abila Zacharo,2014-01-17,Engineering,51.95
+28,Abila Zacharo,2014-01-17,Security,14.51
+29,Abila Zacharo,2014-01-18,Security,65.33
+30,Ahaggo Museum,2014-01-11,Security,89.32
+31,Ahaggo Museum,2014-01-19,Information Technology,26.91
+32,Albert's Fine Clothing,2014-01-06,Engineering,121.76
+33,Albert's Fine Clothing,2014-01-07,Executive,308.36
+34,Albert's Fine Clothing,2014-01-07,Security,78.91
+35,Albert's Fine Clothing,2014-01-08,Executive,136.01
+36,Albert's Fine Clothing,2014-01-09,Security,224.52
+37,Albert's Fine Clothing,2014-01-10,Executive,126.13
+38,Albert's Fine Clothing,2014-01-11,Engineering,211.47
+39,Albert's Fine Clothing,2014-01-12,Security,259.17
+40,Albert's Fine Clothing,2014-01-13,Information Technology,49.48
+41,Albert's Fine Clothing,2014-01-14,Executive,228.72
+42,Albert's Fine Clothing,2014-01-14,Security,50.77
+43,Albert's Fine Clothing,2014-01-15,Security,228.15
+44,Albert's Fine Clothing,2014-01-16,Security,375.09
+45,Albert's Fine Clothing,2014-01-17,Information Technology,1239.41
+46,Albert's Fine Clothing,2014-01-18,Engineering,189.52
+47,Albert's Fine Clothing,2014-01-18,Executive,35.66
+48,Albert's Fine Clothing,2014-01-19,Security,528.95
+49,Bean There Done That,2014-01-06,Executive,30.64
+50,Bean There Done That,2014-01-06,Information Technology,5.24
+51,Bean There Done That,2014-01-06,Security,8.54
+52,Bean There Done That,2014-01-07,Executive,97.5
+53,Bean There Done That,2014-01-07,Information Technology,8.03
+54,Bean There Done That,2014-01-07,Security,53.89
+55,Bean There Done That,2014-01-08,Executive,29.52
+56,Bean There Done That,2014-01-08,Information Technology,94.96
+57,Bean There Done That,2014-01-08,Security,8.06
+58,Bean There Done That,2014-01-09,Executive,13.0
+59,Bean There Done That,2014-01-09,Information Technology,15.53
+60,Bean There Done That,2014-01-09,Security,4.06
+61,Bean There Done That,2014-01-10,Executive,28.61
+62,Bean There Done That,2014-01-10,Information Technology,18.67
+63,Bean There Done That,2014-01-10,Security,13.41
+64,Bean There Done That,2014-01-13,Engineering,25.61
+65,Bean There Done That,2014-01-13,Executive,124.54
+66,Bean There Done That,2014-01-13,Information Technology,5.54
+67,Bean There Done That,2014-01-13,Security,19.56
+68,Bean There Done That,2014-01-14,Executive,32.550000000000004
+69,Bean There Done That,2014-01-14,Information Technology,67.82
+70,Bean There Done That,2014-01-14,Security,14.56
+71,Bean There Done That,2014-01-15,Executive,20.58
+72,Bean There Done That,2014-01-15,Information Technology,18.96
+73,Bean There Done That,2014-01-15,Security,93.13
+74,Bean There Done That,2014-01-16,Executive,49.55
+75,Bean There Done That,2014-01-16,Information Technology,98.34
+76,Bean There Done That,2014-01-16,Security,5.56
+77,Bean There Done That,2014-01-17,Executive,33.650000000000006
+78,Bean There Done That,2014-01-17,Information Technology,18.72
+79,Bean There Done That,2014-01-17,Security,19.56
+80,Brew've Been Served,2014-01-06,Engineering,65.17999999999999
+81,Brew've Been Served,2014-01-06,Executive,11.2
+82,Brew've Been Served,2014-01-06,Information Technology,18.24
+83,Brew've Been Served,2014-01-06,Security,33.49
+84,Brew've Been Served,2014-01-07,Engineering,54.22
+85,Brew've Been Served,2014-01-07,Executive,15.66
+86,Brew've Been Served,2014-01-07,Security,91.09
+87,Brew've Been Served,2014-01-08,Engineering,131.53
+88,Brew've Been Served,2014-01-08,Executive,11.48
+89,Brew've Been Served,2014-01-08,Information Technology,32.92
+90,Brew've Been Served,2014-01-08,Security,144.39000000000001
+91,Brew've Been Served,2014-01-09,Engineering,17.21
+92,Brew've Been Served,2014-01-09,Executive,5.26
+93,Brew've Been Served,2014-01-09,Security,108.26
+94,Brew've Been Served,2014-01-10,Engineering,140.48999999999998
+95,Brew've Been Served,2014-01-10,Executive,14.36
+96,Brew've Been Served,2014-01-10,Information Technology,14.45
+97,Brew've Been Served,2014-01-10,Security,150.17000000000002
+98,Brew've Been Served,2014-01-13,Engineering,62.7
+99,Brew've Been Served,2014-01-13,Executive,13.37
+100,Brew've Been Served,2014-01-13,Security,113.16000000000001
+101,Brew've Been Served,2014-01-14,Engineering,51.25
+102,Brew've Been Served,2014-01-14,Executive,11.53
+103,Brew've Been Served,2014-01-14,Information Technology,6.45
+104,Brew've Been Served,2014-01-14,Security,41.66
+105,Brew've Been Served,2014-01-15,Engineering,97.48
+106,Brew've Been Served,2014-01-15,Executive,5.75
+107,Brew've Been Served,2014-01-15,Information Technology,15.58
+108,Brew've Been Served,2014-01-15,Security,28.700000000000003
+109,Brew've Been Served,2014-01-16,Engineering,55.32
+110,Brew've Been Served,2014-01-16,Executive,11.21
+111,Brew've Been Served,2014-01-16,Information Technology,5.82
+112,Brew've Been Served,2014-01-16,Security,125.34
+113,Brew've Been Served,2014-01-17,Engineering,46.459999999999994
+114,Brew've Been Served,2014-01-17,Executive,14.58
+115,Brew've Been Served,2014-01-17,Information Technology,3.09
+116,Brew've Been Served,2014-01-17,Security,56.58
+117,Brewed Awakenings,2014-01-06,Security,16.89
+118,Brewed Awakenings,2014-01-07,Information Technology,64.84
+119,Brewed Awakenings,2014-01-07,Security,71.59
+120,Brewed Awakenings,2014-01-08,Security,12.32
+121,Brewed Awakenings,2014-01-09,Security,13.16
+122,Brewed Awakenings,2014-01-10,Security,6.17
+123,Brewed Awakenings,2014-01-13,Security,56.4
+124,Brewed Awakenings,2014-01-14,Security,8.3
+125,Brewed Awakenings,2014-01-15,Security,91.62
+126,Brewed Awakenings,2014-01-16,Security,6.53
+127,Brewed Awakenings,2014-01-17,Security,88.69
+128,Chostus Hotel,2014-01-08,Security,107.51
+129,Chostus Hotel,2014-01-10,Security,197.41
+130,Chostus Hotel,2014-01-14,Security,109.54
+131,Chostus Hotel,2014-01-17,Security,159.62
+132,Coffee Cameleon,2014-01-06,Security,52.18
+133,Coffee Cameleon,2014-01-07,Security,100.75
+134,Coffee Cameleon,2014-01-08,Security,50.730000000000004
+135,Coffee Cameleon,2014-01-09,Security,48.589999999999996
+136,Coffee Cameleon,2014-01-10,Security,42.989999999999995
+137,Coffee Cameleon,2014-01-13,Facilities,19.93
+138,Coffee Cameleon,2014-01-13,Security,40.129999999999995
+139,Coffee Cameleon,2014-01-14,Facilities,9.8
+140,Coffee Cameleon,2014-01-14,Security,35.14
+141,Coffee Cameleon,2014-01-15,Facilities,14.47
+142,Coffee Cameleon,2014-01-15,Security,81.73
+143,Coffee Cameleon,2014-01-16,Facilities,67.19
+144,Coffee Cameleon,2014-01-16,Security,63.14
+145,Coffee Cameleon,2014-01-17,Engineering,24.15
+146,Coffee Cameleon,2014-01-17,Facilities,10.27
+147,Coffee Cameleon,2014-01-17,Security,14.3
+148,Coffee Shack,2014-01-06,Security,51.51
+149,Coffee Shack,2014-01-07,Security,16.63
+150,Coffee Shack,2014-01-08,Security,13.13
+151,Coffee Shack,2014-01-09,Security,5.01
+152,Coffee Shack,2014-01-13,Security,4.09
+153,Coffee Shack,2014-01-14,Security,3.63
+154,Coffee Shack,2014-01-16,Security,10.48
+155,Coffee Shack,2014-01-17,Security,19.16
+156,Desafio Golf Course,2014-01-12,Engineering,129.33
+157,Desafio Golf Course,2014-01-19,Engineering,110.02
+158,Frank's Fuel,2014-01-08,Information Technology,65.34
+159,Frank's Fuel,2014-01-18,Executive,52.66
+160,Frydos Autosupply n' More,2014-01-06,Engineering,640.1500000000001
+161,Frydos Autosupply n' More,2014-01-06,Information Technology,273.87
+162,Frydos Autosupply n' More,2014-01-06,Security,197.32
+163,Frydos Autosupply n' More,2014-01-08,Engineering,268.89
+164,Frydos Autosupply n' More,2014-01-08,Information Technology,182.56
+165,Frydos Autosupply n' More,2014-01-08,Security,214.07
+166,Frydos Autosupply n' More,2014-01-09,Information Technology,397.4
+167,Frydos Autosupply n' More,2014-01-09,Security,138.02
+168,Frydos Autosupply n' More,2014-01-11,Engineering,447.4
+169,Frydos Autosupply n' More,2014-01-12,Engineering,88.93
+170,Frydos Autosupply n' More,2014-01-13,Engineering,188.57
+171,Frydos Autosupply n' More,2014-01-13,Executive,64.6
+172,Frydos Autosupply n' More,2014-01-13,Security,202.05
+173,Frydos Autosupply n' More,2014-01-14,Engineering,42.72
+174,Frydos Autosupply n' More,2014-01-14,Security,49.21
+175,Frydos Autosupply n' More,2014-01-15,Engineering,18.66
+176,Frydos Autosupply n' More,2014-01-15,Security,295.79
+177,Frydos Autosupply n' More,2014-01-16,Engineering,53.37
+178,Frydos Autosupply n' More,2014-01-16,Security,130.01
+179,Frydos Autosupply n' More,2014-01-17,Engineering,67.29
+180,Frydos Autosupply n' More,2014-01-17,Security,124.52
+181,Frydos Autosupply n' More,2014-01-18,Engineering,820.15
+182,Frydos Autosupply n' More,2014-01-18,Security,103.55
+183,Frydos Autosupply n' More,2014-01-19,Engineering,98.04
+184,Frydos Autosupply n' More,2014-01-19,Security,265.85
+185,Gelatogalore,2014-01-06,Information Technology,36.33
+186,Gelatogalore,2014-01-06,Security,36.15
+187,Gelatogalore,2014-01-07,Engineering,201.5
+188,Gelatogalore,2014-01-07,Security,123.00999999999999
+189,Gelatogalore,2014-01-08,Engineering,20.72
+190,Gelatogalore,2014-01-08,Executive,32.79
+191,Gelatogalore,2014-01-08,Security,298.68
+192,Gelatogalore,2014-01-09,Engineering,55.81999999999999
+193,Gelatogalore,2014-01-09,Executive,31.83
+194,Gelatogalore,2014-01-09,Security,116.94
+195,Gelatogalore,2014-01-10,Executive,26.15
+196,Gelatogalore,2014-01-11,Engineering,17.31
+197,Gelatogalore,2014-01-11,Information Technology,18.74
+198,Gelatogalore,2014-01-13,Engineering,117.17
+199,Gelatogalore,2014-01-13,Executive,36.93
+200,Gelatogalore,2014-01-14,Engineering,177.17000000000002
+201,Gelatogalore,2014-01-14,Security,103.80000000000001
+202,Gelatogalore,2014-01-15,Engineering,51.97
+203,Gelatogalore,2014-01-15,Information Technology,31.21
+204,Gelatogalore,2014-01-15,Security,64.36
+205,Gelatogalore,2014-01-16,Engineering,77.53999999999999
+206,Gelatogalore,2014-01-17,Engineering,55.4
+207,Gelatogalore,2014-01-17,Executive,23.23
+208,Gelatogalore,2014-01-17,Information Technology,21.62
+209,Gelatogalore,2014-01-17,Security,34.59
+210,Gelatogalore,2014-01-18,Engineering,84.38
+211,Gelatogalore,2014-01-19,Executive,22.36
+212,General Grocer,2014-01-08,Engineering,265.84
+213,General Grocer,2014-01-09,Security,285.34
+214,General Grocer,2014-01-10,Engineering,227.28
+215,General Grocer,2014-01-11,Engineering,78.02
+216,General Grocer,2014-01-12,Security,159.3
+217,General Grocer,2014-01-15,Security,126.2
+218,General Grocer,2014-01-17,Engineering,98.03
+219,General Grocer,2014-01-18,Facilities,477.6
+220,General Grocer,2014-01-19,Executive,70.22
+221,Guy's Gyros,2014-01-06,Engineering,324.0
+222,Guy's Gyros,2014-01-06,Executive,46.26
+223,Guy's Gyros,2014-01-06,Security,51.510000000000005
+224,Guy's Gyros,2014-01-07,Engineering,47.0
+225,Guy's Gyros,2014-01-07,Executive,10.11
+226,Guy's Gyros,2014-01-07,Information Technology,62.33
+227,Guy's Gyros,2014-01-07,Security,72.92
+228,Guy's Gyros,2014-01-08,Engineering,89.7
+229,Guy's Gyros,2014-01-08,Information Technology,77.9
+230,Guy's Gyros,2014-01-08,Security,121.99
+231,Guy's Gyros,2014-01-09,Engineering,84.5
+232,Guy's Gyros,2014-01-09,Executive,74.91
+233,Guy's Gyros,2014-01-09,Security,40.78
+234,Guy's Gyros,2014-01-10,Engineering,128.06
+235,Guy's Gyros,2014-01-10,Executive,69.65
+236,Guy's Gyros,2014-01-10,Information Technology,68.42
+237,Guy's Gyros,2014-01-10,Security,43.71
+238,Guy's Gyros,2014-01-11,Engineering,91.56
+239,Guy's Gyros,2014-01-12,Engineering,72.78999999999999
+240,Guy's Gyros,2014-01-12,Information Technology,34.41
+241,Guy's Gyros,2014-01-13,Engineering,203.39
+242,Guy's Gyros,2014-01-13,Executive,21.03
+243,Guy's Gyros,2014-01-13,Security,139.24
+244,Guy's Gyros,2014-01-14,Engineering,202.1
+245,Guy's Gyros,2014-01-14,Executive,13.27
+246,Guy's Gyros,2014-01-14,Information Technology,10.85
+247,Guy's Gyros,2014-01-14,Security,48.870000000000005
+248,Guy's Gyros,2014-01-15,Engineering,150.07
+249,Guy's Gyros,2014-01-15,Executive,14.37
+250,Guy's Gyros,2014-01-15,Information Technology,61.43
+251,Guy's Gyros,2014-01-15,Security,113.93
+252,Guy's Gyros,2014-01-16,Engineering,55.550000000000004
+253,Guy's Gyros,2014-01-16,Information Technology,25.78
+254,Guy's Gyros,2014-01-16,Security,108.60999999999999
+255,Guy's Gyros,2014-01-17,Engineering,75.08
+256,Guy's Gyros,2014-01-17,Information Technology,47.68
+257,Guy's Gyros,2014-01-17,Security,124.24000000000001
+258,Guy's Gyros,2014-01-18,Engineering,181.72
+259,Guy's Gyros,2014-01-18,Security,39.68
+260,Guy's Gyros,2014-01-19,Engineering,169.17000000000002
+261,Guy's Gyros,2014-01-19,Information Technology,20.94
+262,Guy's Gyros,2014-01-19,Security,58.35
+263,Hallowed Grounds,2014-01-06,Engineering,138.16
+264,Hallowed Grounds,2014-01-06,Information Technology,10.66
+265,Hallowed Grounds,2014-01-07,Engineering,144.02
+266,Hallowed Grounds,2014-01-07,Information Technology,9.61
+267,Hallowed Grounds,2014-01-08,Engineering,53.4
+268,Hallowed Grounds,2014-01-08,Information Technology,3.11
+269,Hallowed Grounds,2014-01-09,Engineering,233.63
+270,Hallowed Grounds,2014-01-09,Information Technology,65.68
+271,Hallowed Grounds,2014-01-10,Engineering,86.34
+272,Hallowed Grounds,2014-01-10,Information Technology,11.38
+273,Hallowed Grounds,2014-01-13,Engineering,90.33
+274,Hallowed Grounds,2014-01-13,Information Technology,13.68
+275,Hallowed Grounds,2014-01-14,Engineering,121.27
+276,Hallowed Grounds,2014-01-14,Information Technology,39.52
+277,Hallowed Grounds,2014-01-15,Engineering,131.75
+278,Hallowed Grounds,2014-01-15,Information Technology,14.33
+279,Hallowed Grounds,2014-01-16,Engineering,193.36
+280,Hallowed Grounds,2014-01-16,Information Technology,17.74
+281,Hallowed Grounds,2014-01-17,Engineering,60.260000000000005
+282,Hallowed Grounds,2014-01-17,Information Technology,38.22
+283,Hippokampos,2014-01-06,Engineering,70.57
+284,Hippokampos,2014-01-06,Executive,106.83
+285,Hippokampos,2014-01-06,Information Technology,35.34
+286,Hippokampos,2014-01-06,Security,103.99
+287,Hippokampos,2014-01-07,Engineering,75.45
+288,Hippokampos,2014-01-07,Executive,11.56
+289,Hippokampos,2014-01-07,Information Technology,197.99
+290,Hippokampos,2014-01-07,Security,41.370000000000005
+291,Hippokampos,2014-01-08,Engineering,78.99
+292,Hippokampos,2014-01-08,Executive,71.97
+293,Hippokampos,2014-01-08,Information Technology,37.89
+294,Hippokampos,2014-01-08,Security,138.91
+295,Hippokampos,2014-01-09,Engineering,127.89
+296,Hippokampos,2014-01-09,Executive,43.51
+297,Hippokampos,2014-01-09,Information Technology,9.12
+298,Hippokampos,2014-01-09,Security,129.82
+299,Hippokampos,2014-01-10,Engineering,111.97999999999999
+300,Hippokampos,2014-01-10,Executive,48.22
+301,Hippokampos,2014-01-10,Security,120.91
+302,Hippokampos,2014-01-11,Engineering,185.61
+303,Hippokampos,2014-01-11,Executive,137.60000000000002
+304,Hippokampos,2014-01-11,Security,144.14000000000001
+305,Hippokampos,2014-01-12,Engineering,12.57
+306,Hippokampos,2014-01-12,Executive,194.07
+307,Hippokampos,2014-01-12,Information Technology,27.15
+308,Hippokampos,2014-01-12,Security,111.16
+309,Hippokampos,2014-01-13,Engineering,71.48
+310,Hippokampos,2014-01-13,Executive,31.59
+311,Hippokampos,2014-01-13,Security,94.97999999999999
+312,Hippokampos,2014-01-14,Engineering,9.55
+313,Hippokampos,2014-01-14,Executive,68.09
+314,Hippokampos,2014-01-14,Information Technology,19.07
+315,Hippokampos,2014-01-14,Security,58.14
+316,Hippokampos,2014-01-15,Engineering,126.98
+317,Hippokampos,2014-01-15,Executive,162.28
+318,Hippokampos,2014-01-15,Information Technology,10.35
+319,Hippokampos,2014-01-15,Security,131.38
+320,Hippokampos,2014-01-16,Engineering,78.78999999999999
+321,Hippokampos,2014-01-16,Executive,211.32999999999998
+322,Hippokampos,2014-01-16,Information Technology,44.019999999999996
+323,Hippokampos,2014-01-16,Security,26.910000000000004
+324,Hippokampos,2014-01-17,Engineering,162.31
+325,Hippokampos,2014-01-17,Executive,12.86
+326,Hippokampos,2014-01-17,Security,103.27000000000001
+327,Hippokampos,2014-01-18,Engineering,53.21
+328,Hippokampos,2014-01-18,Executive,99.71000000000001
+329,Hippokampos,2014-01-18,Information Technology,21.34
+330,Hippokampos,2014-01-18,Security,184.35
+331,Hippokampos,2014-01-19,Engineering,63.17
+332,Hippokampos,2014-01-19,Executive,226.53
+333,Hippokampos,2014-01-19,Information Technology,88.27
+334,Hippokampos,2014-01-19,Security,64.37
+335,Jack's Magical Beans,2014-01-06,Engineering,18.1
+336,Jack's Magical Beans,2014-01-06,Executive,11.03
+337,Jack's Magical Beans,2014-01-06,Information Technology,18.59
+338,Jack's Magical Beans,2014-01-07,Engineering,69.84
+339,Jack's Magical Beans,2014-01-07,Executive,23.68
+340,Jack's Magical Beans,2014-01-07,Information Technology,18.77
+341,Jack's Magical Beans,2014-01-08,Engineering,31.25
+342,Jack's Magical Beans,2014-01-08,Executive,3.96
+343,Jack's Magical Beans,2014-01-08,Information Technology,18.78
+344,Jack's Magical Beans,2014-01-09,Engineering,37.43
+345,Jack's Magical Beans,2014-01-09,Executive,10.11
+346,Jack's Magical Beans,2014-01-09,Information Technology,18.130000000000003
+347,Jack's Magical Beans,2014-01-10,Engineering,8.22
+348,Jack's Magical Beans,2014-01-10,Executive,15.69
+349,Jack's Magical Beans,2014-01-10,Information Technology,16.29
+350,Jack's Magical Beans,2014-01-13,Engineering,17.52
+351,Jack's Magical Beans,2014-01-13,Executive,18.31
+352,Jack's Magical Beans,2014-01-13,Information Technology,5.22
+353,Jack's Magical Beans,2014-01-14,Information Technology,63.36
+354,Jack's Magical Beans,2014-01-15,Engineering,19.54
+355,Jack's Magical Beans,2014-01-15,Executive,11.15
+356,Jack's Magical Beans,2014-01-15,Information Technology,5.3
+357,Jack's Magical Beans,2014-01-16,Engineering,6.95
+358,Jack's Magical Beans,2014-01-16,Executive,9.12
+359,Jack's Magical Beans,2014-01-16,Information Technology,14.86
+360,Jack's Magical Beans,2014-01-17,Executive,7.57
+361,Jack's Magical Beans,2014-01-17,Information Technology,19.11
+362,Kalami Kafenion,2014-01-06,Engineering,58.349999999999994
+363,Kalami Kafenion,2014-01-06,Information Technology,22.13
+364,Kalami Kafenion,2014-01-06,Security,83.17999999999999
+365,Kalami Kafenion,2014-01-07,Engineering,33.78
+366,Kalami Kafenion,2014-01-07,Security,40.89
+367,Kalami Kafenion,2014-01-08,Engineering,46.2
+368,Kalami Kafenion,2014-01-08,Information Technology,23.82
+369,Kalami Kafenion,2014-01-08,Security,59.059999999999995
+370,Kalami Kafenion,2014-01-09,Engineering,46.93
+371,Kalami Kafenion,2014-01-09,Executive,110.76
+372,Kalami Kafenion,2014-01-09,Security,19.84
+373,Kalami Kafenion,2014-01-10,Engineering,51.78
+374,Kalami Kafenion,2014-01-10,Information Technology,101.5
+375,Kalami Kafenion,2014-01-10,Security,35.69
+376,Kalami Kafenion,2014-01-11,Engineering,86.14
+377,Kalami Kafenion,2014-01-11,Security,59.519999999999996
+378,Kalami Kafenion,2014-01-12,Information Technology,14.59
+379,Kalami Kafenion,2014-01-12,Security,54.36
+380,Kalami Kafenion,2014-01-13,Engineering,20.33
+381,Kalami Kafenion,2014-01-14,Engineering,33.13
+382,Kalami Kafenion,2014-01-14,Executive,17.38
+383,Kalami Kafenion,2014-01-14,Information Technology,38.370000000000005
+384,Kalami Kafenion,2014-01-14,Security,27.65
+385,Kalami Kafenion,2014-01-15,Engineering,64.67
+386,Kalami Kafenion,2014-01-15,Executive,85.00999999999999
+387,Kalami Kafenion,2014-01-16,Executive,91.38
+388,Kalami Kafenion,2014-01-16,Information Technology,11.83
+389,Kalami Kafenion,2014-01-17,Engineering,220.2
+390,Kalami Kafenion,2014-01-17,Executive,24.21
+391,Kalami Kafenion,2014-01-17,Security,140.78
+392,Kalami Kafenion,2014-01-18,Engineering,69.03
+393,Kalami Kafenion,2014-01-18,Executive,71.14
+394,Kalami Kafenion,2014-01-18,Information Technology,24.14
+395,Katerina’s Café,2014-01-06,Engineering,141.65
+396,Katerina’s Café,2014-01-06,Executive,130.75
+397,Katerina’s Café,2014-01-06,Information Technology,65.50999999999999
+398,Katerina’s Café,2014-01-06,Security,124.27
+399,Katerina’s Café,2014-01-07,Engineering,160.97
+400,Katerina’s Café,2014-01-07,Executive,31.6
+401,Katerina’s Café,2014-01-07,Information Technology,32.83
+402,Katerina’s Café,2014-01-07,Security,100.5
+403,Katerina’s Café,2014-01-08,Engineering,205.63
+404,Katerina’s Café,2014-01-08,Executive,79.4
+405,Katerina’s Café,2014-01-08,Security,208.5
+406,Katerina’s Café,2014-01-09,Engineering,280.38
+407,Katerina’s Café,2014-01-09,Information Technology,29.439999999999998
+408,Katerina’s Café,2014-01-09,Security,108.92
+409,Katerina’s Café,2014-01-10,Engineering,134.23000000000002
+410,Katerina’s Café,2014-01-10,Executive,33.760000000000005
+411,Katerina’s Café,2014-01-10,Security,67.44
+412,Katerina’s Café,2014-01-11,Engineering,189.44
+413,Katerina’s Café,2014-01-11,Executive,44.82
+414,Katerina’s Café,2014-01-11,Information Technology,23.45
+415,Katerina’s Café,2014-01-11,Security,353.86
+416,Katerina’s Café,2014-01-12,Engineering,182.7
+417,Katerina’s Café,2014-01-12,Executive,16.34
+418,Katerina’s Café,2014-01-12,Facilities,67.14
+419,Katerina’s Café,2014-01-12,Information Technology,17.36
+420,Katerina’s Café,2014-01-12,Security,91.61
+421,Katerina’s Café,2014-01-13,Engineering,301.96999999999997
+422,Katerina’s Café,2014-01-13,Executive,26.15
+423,Katerina’s Café,2014-01-13,Facilities,119.38
+424,Katerina’s Café,2014-01-13,Information Technology,24.26
+425,Katerina’s Café,2014-01-13,Security,96.91999999999999
+426,Katerina’s Café,2014-01-14,Engineering,122.30000000000001
+427,Katerina’s Café,2014-01-14,Executive,35.43
+428,Katerina’s Café,2014-01-14,Facilities,112.41
+429,Katerina’s Café,2014-01-14,Information Technology,11.89
+430,Katerina’s Café,2014-01-14,Security,62.64
+431,Katerina’s Café,2014-01-15,Engineering,88.28
+432,Katerina’s Café,2014-01-15,Executive,29.33
+433,Katerina’s Café,2014-01-15,Facilities,27.48
+434,Katerina’s Café,2014-01-15,Information Technology,39.23
+435,Katerina’s Café,2014-01-15,Security,161.83
+436,Katerina’s Café,2014-01-16,Engineering,210.89999999999998
+437,Katerina’s Café,2014-01-16,Executive,93.68
+438,Katerina’s Café,2014-01-16,Facilities,34.34
+439,Katerina’s Café,2014-01-16,Information Technology,34.58
+440,Katerina’s Café,2014-01-16,Security,88.89
+441,Katerina’s Café,2014-01-17,Engineering,152.89
+442,Katerina’s Café,2014-01-17,Facilities,21.01
+443,Katerina’s Café,2014-01-17,Information Technology,35.29
+444,Katerina’s Café,2014-01-17,Security,128.02
+445,Katerina’s Café,2014-01-18,Engineering,199.10999999999999
+446,Katerina’s Café,2014-01-18,Executive,83.14
+447,Katerina’s Café,2014-01-18,Facilities,76.1
+448,Katerina’s Café,2014-01-18,Information Technology,9.72
+449,Katerina’s Café,2014-01-18,Security,129.81
+450,Katerina’s Café,2014-01-19,Engineering,112.23
+451,Katerina’s Café,2014-01-19,Facilities,72.25
+452,Katerina’s Café,2014-01-19,Information Technology,54.2
+453,Katerina’s Café,2014-01-19,Security,70.22
+454,Kronos Mart,2014-01-13,Engineering,306.36
+455,Kronos Mart,2014-01-14,Executive,58.85
+456,Kronos Mart,2014-01-16,Engineering,298.83
+457,Kronos Mart,2014-01-17,Executive,286.24
+458,Kronos Mart,2014-01-19,Security,87.66
+459,Octavio's Office Supplies,2014-01-10,Security,204.23000000000002
+460,Octavio's Office Supplies,2014-01-14,Engineering,131.73
+461,Octavio's Office Supplies,2014-01-16,Engineering,131.01
+462,Ouzeri Elian,2014-01-06,Engineering,41.3
+463,Ouzeri Elian,2014-01-06,Executive,20.4
+464,Ouzeri Elian,2014-01-06,Security,69.77
+465,Ouzeri Elian,2014-01-07,Engineering,118.24
+466,Ouzeri Elian,2014-01-07,Executive,86.69
+467,Ouzeri Elian,2014-01-07,Information Technology,27.61
+468,Ouzeri Elian,2014-01-07,Security,57.47
+469,Ouzeri Elian,2014-01-08,Engineering,104.92
+470,Ouzeri Elian,2014-01-08,Executive,29.85
+471,Ouzeri Elian,2014-01-09,Engineering,55.29
+472,Ouzeri Elian,2014-01-09,Executive,27.08
+473,Ouzeri Elian,2014-01-09,Information Technology,31.07
+474,Ouzeri Elian,2014-01-10,Engineering,76.13
+475,Ouzeri Elian,2014-01-10,Executive,19.92
+476,Ouzeri Elian,2014-01-10,Information Technology,35.24
+477,Ouzeri Elian,2014-01-10,Security,15.25
+478,Ouzeri Elian,2014-01-11,Engineering,35.8
+479,Ouzeri Elian,2014-01-11,Executive,69.36
+480,Ouzeri Elian,2014-01-12,Engineering,170.76999999999998
+481,Ouzeri Elian,2014-01-12,Executive,55.55
+482,Ouzeri Elian,2014-01-12,Security,24.72
+483,Ouzeri Elian,2014-01-13,Engineering,30.15
+484,Ouzeri Elian,2014-01-13,Security,124.78
+485,Ouzeri Elian,2014-01-14,Engineering,176.92000000000002
+486,Ouzeri Elian,2014-01-14,Executive,91.44
+487,Ouzeri Elian,2014-01-14,Information Technology,24.06
+488,Ouzeri Elian,2014-01-14,Security,127.02
+489,Ouzeri Elian,2014-01-15,Engineering,83.74
+490,Ouzeri Elian,2014-01-15,Executive,23.18
+491,Ouzeri Elian,2014-01-15,Information Technology,65.33
+492,Ouzeri Elian,2014-01-15,Security,21.83
+493,Ouzeri Elian,2014-01-16,Engineering,22.65
+494,Ouzeri Elian,2014-01-16,Executive,23.89
+495,Ouzeri Elian,2014-01-16,Information Technology,42.46
+496,Ouzeri Elian,2014-01-16,Security,35.26
+497,Ouzeri Elian,2014-01-17,Engineering,52.5
+498,Ouzeri Elian,2014-01-17,Executive,52.61
+499,Ouzeri Elian,2014-01-17,Information Technology,70.21
+500,Ouzeri Elian,2014-01-18,Engineering,14.9
+501,Ouzeri Elian,2014-01-18,Executive,91.2
+502,Ouzeri Elian,2014-01-18,Facilities,25.75
+503,Ouzeri Elian,2014-01-19,Executive,67.98
+504,Ouzeri Elian,2014-01-19,Security,23.65
+505,Roberts and Sons,2014-01-11,Engineering,256.24
+506,Roberts and Sons,2014-01-14,Engineering,223.81
+507,Roberts and Sons,2014-01-16,Engineering,155.76
+508,Roberts and Sons,2014-01-18,Engineering,266.69
+509,Roberts and Sons,2014-01-18,Security,62.47
+510,Shoppers' Delight,2014-01-09,Engineering,258.43
+511,Shoppers' Delight,2014-01-10,Security,279.53
+512,Shoppers' Delight,2014-01-11,Engineering,157.45
+513,Shoppers' Delight,2014-01-11,Security,238.52
+514,Shoppers' Delight,2014-01-12,Engineering,135.78
+515,Shoppers' Delight,2014-01-12,Facilities,51.5
+516,Shoppers' Delight,2014-01-12,Security,204.37
+517,Shoppers' Delight,2014-01-13,Information Technology,216.43
+518,Shoppers' Delight,2014-01-16,Security,160.69
+519,Shoppers' Delight,2014-01-19,Security,30.39
+520,U-Pump,2014-01-06,Security,59.51
