@@ -16,3 +16,8 @@ h1 {
 .chart-container {
   margin-bottom: 40px;
 }
+
+#networkGraph {
+  height: 800px;
+  width: 1000px;
+}
