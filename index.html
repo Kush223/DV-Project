@@ -1,17 +1,70 @@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Project</title>
-  <script src="https://d3js.org/d3.v7.min.js"></script> 
-  <style>
-    #myViz {
-      height: 800px;
-      width: 1000px;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Visualizations with Bootstrap</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./styles.css">
 </head>
+
 <body>
-  <svg id="heatmap" width="800" height="600"></svg> 
-  <div id="myViz"></div>
-  <script src="main.js"></script> 
+
+  <div class="container text-center">
+    <h1 class="m-2">Data Visualizations</h1>
+
+    <div class="bar-container">
+      <div class="row">
+        <div class="col">
+          <h2>Heat Map</h2>
+          <svg id="heatmap"></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="network-container">
+      <div class="row">
+        <div class="col">
+          <h2>Network Graph</h2>
+          <svg id="networkGraph"></svg>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="pie-container">
+          <h2>Pie Chart</h2>
+          <svg id="pieChart"></svg>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="histogram-container">
+          <h2>Histogram</h2>
+          <svg id="histogram"></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-container">
+      <div class="row">
+        <div class="col">
+          <h2>Time Series</h2>
+          <svg id="timeSeries"></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and Popper.js -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="./main.js"></script>
 </body>
+
 </html>
