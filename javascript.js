@@ -269,7 +269,6 @@ function TimeseriesFrequency(employee_name){
 
         var svg = d3.select("#time-series-chart");
 
-
         const width = +svg.style("width").replace("px", "");
         const height = +svg.style("height").replace("px", "");
 
@@ -284,11 +283,8 @@ function TimeseriesFrequency(employee_name){
             .append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        
-
         data = data.filter(d => d.FullName === employee_name);
 
-        
         const aggregatedData = new Map();
 
         //  // Aggregate data
@@ -314,20 +310,11 @@ function TimeseriesFrequency(employee_name){
             return d;
         });
 
-
-
-
-
-  
-
         aggregatedArray.forEach(d => {
                 d.totalSpending = +d.totalSpending;
             });
 
-
         console.log(aggregatedArray);
-  
-
 
         // Set the domains of the scales
         const xScale = d3.scalePoint()
@@ -376,9 +363,7 @@ function TimeseriesFrequency(employee_name){
         .attr("stroke-width", 2)
         .attr("transform", `translate(${margin.left}, 0)`) 
         .attr("d", line);
-
-
-})
+    })
 }
 
 

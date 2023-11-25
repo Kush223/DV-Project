@@ -1,25 +1,40 @@
+let margin_hm,width_hm,height_hm,svg_hm,g_hm
+let margin_ng,width_ng,height_ng,svg_ng,g_ng
+
 document.addEventListener('DOMContentLoaded', function () {
   Promise.all([d3.csv('data/heatmap_data.csv')]).then(function (values) {
     heatmap_data = values[0]
     console.log(heatmap_data)
-    const margin = { top: 50, right: 50, bottom: 50, left: 80 }
-    const width = 800 - margin.left - margin.right
-    const height = 600 - margin.top - margin.bottom
+    margin_hm = { top: 50, right: 50, bottom: 50, left: 80 }
+    width_hm = 800 - margin_hm.left - margin_hm.right
+    height_hm = 600 - margin_hm.top - margin_hm.bottom
 
-    const svg = d3
+    svg_hm = d3
       .select('#heatmap')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-    const g = svg
+      .attr('width', width_hm + margin_hm.left + margin_hm.right)
+      .attr('height', height_hm + margin_hm.top + margin_hm.bottom)
+    g_hm = svg_hm
       .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`)
+      .attr('transform', `translate(${margin_hm.left},${margin_hm.top})`)
+
+    margin_ng = { top: 10, right: 30, bottom: 30, left: 40 },
+    width_ng = 1000 - margin_ng.left - margin_ng.right,
+    height_ng = 800 - margin_ng.top - margin_ng.bottom
+    svg_ng = d3
+      .select('#networkGraph')
+      .append('svg')
+      .attr('width', width_ng + margin_ng.left + margin_ng.right)
+      .attr('height', height_ng + margin_ng.top + margin_ng.bottom)
+    g_ng = svg_ng
+      .append('g')
+      .attr('transform', 'translate(' + margin_ng.left + ',' + margin_ng.top + ')')
 
     mxt = d3.max(heatmap_data, d => {
       return d.num_transactions
     })
     var x = d3
       .scaleBand()
-      .range([0, width])
+      .range([0, width_hm])
       .domain([
         '2014-01-06',
         '2014-01-07',
@@ -39,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //   .padding(0.01);
     var y = d3
       .scaleBand()
-      .range([0, height])
+      .range([0, height_hm])
       .domain([
         'Abila Zacharo',
         'Ahaggo Museum',
@@ -71,14 +86,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // .padding(0.01);
     const color = d3.scaleLinear().range(['white', 'green']).domain([0, mxt])
 
-    g.selectAll('.cell')
+    g_hm.selectAll('.cell')
       .data(heatmap_data)
       .enter()
       .append('rect')
       .attr('x', d => x(d.timestamp))
       .attr('y', d => y(d.location))
-      .attr('width', width / 14)
-      .attr('height', height / 26)
+      .attr('width', width_hm / 14)
+      .attr('height', height_hm / 26)
       .style('fill', d => color(d.num_transactions))
       // .attr("stroke","black")
       // .attr("stroke-width","1px")
@@ -110,12 +125,12 @@ document.addEventListener('DOMContentLoaded', function () {
             '2014-01-18',
             '2014-01-19'
           ])
-          .range([0, width])
+          .range([0, width_hm])
       )
 
-    const xAxisGroup = g
+    const xAxisGroup = g_hm
       .append('g')
-      .attr('transform', `translate(0,${height})`)
+      .attr('transform', `translate(0,${height_hm})`)
       .call(xAxis)
     xAxisGroup.selectAll('text').style('font-size', '6px')
 
@@ -152,10 +167,10 @@ document.addEventListener('DOMContentLoaded', function () {
             "Shoppers' Delight",
             'U-Pump'
           ])
-          .range([0, height])
+          .range([0, height_hm])
       )
 
-    let yAxisGroup = g.append('g').call(yAxis)
+    let yAxisGroup = g_hm.append('g').call(yAxis)
     yAxisGroup.selectAll('text').style('font-size', '6px')
   })
 })
@@ -171,6 +186,20 @@ function make_network (location, timestamp) {
     network_data = network_data.filter(
       entry => entry.location === location && entry.day === timestamp
     )
+    const uniquePairsSet = new Set();
+    function getUniquePairKey(obj) {
+        const [nameA, nameB] = [obj.Person1, obj.Person2].sort();
+        return `${nameA}_${nameB}`;
+    }
+
+    network_data = network_data.filter(item => {
+        const pairKey = getUniquePairKey(item);
+        if (!uniquePairsSet.has(pairKey)) {
+            uniquePairsSet.add(pairKey);
+            return true; 
+        }
+        return false;
+    });
     console.log('Network data filtered')
     console.log(network_data)
     let person = [
@@ -212,31 +241,23 @@ function make_network (location, timestamp) {
     )
     console.log('Person data final')
     console.log(person)
-    // return
-    var margin = { top: 10, right: 30, bottom: 30, left: 40 },
-      width = 1000 - margin.left - margin.right,
-      height = 800 - margin.top - margin.bottom
-    var svg = d3
-      .select('#networkGraph')
-      .append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-    var g = svg
-      .append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
-    var link = g
-      .selectAll('line')
+    let link = g_ng
+      .selectAll(".ln")
       .data(ds)
-      .enter()
+    // console.log(link);
+    .enter()
       .append('line')
+      .attr("class","ln")
+      // .merge(link)
       .style('stroke', '#aaa')
-
-    var weightText = g
-      .selectAll('text')
+      console.log(link);
+    var weightText = g_ng
+      .selectAll(".txt")
       .data(ds)
-      .enter()
+    .enter()
       .append('text')
+      .attr("class","txt")
       .attr('x', function (d) {
         return (d.source.x + d.target.x) / 2
       })
@@ -250,13 +271,18 @@ function make_network (location, timestamp) {
       })
 
     // Initialize the nodes
-    var node = g
-      .selectAll('circle')
+    var node = g_ng
+      .selectAll('.circ')
       .data(person)
-      .enter()
+    .enter()
       .append('circle')
+      .attr("class","circ")
       .attr('r', 20)
       .style('fill', '#69b3a2')
+      .on("click",function (event, d) {
+        console.log(d)
+        make_timeseries();
+      })
 
     // Let's list the force we wanna apply on the network
     var simulation = d3
@@ -270,12 +296,13 @@ function make_network (location, timestamp) {
           }) // This provide  the id of a node
       )
       .force('charge', d3.forceManyBody().strength(-400)) // This adds repulsion between nodes. Play with the -400 for the repulsion strength
-      .force('center', d3.forceCenter(width / 2, height / 2)) // This force attracts nodes to the center of the svg area
+      .force('center', d3.forceCenter(width_ng / 2, height_ng / 2)) // This force attracts nodes to the center of the svg area
       .on('end', ticked)
     simulation.alphaDecay(0.1).restart()
     // .on('end', () => {})
     // This function is run at each iteration of the force algorithm, updating the nodes position.
     function ticked () {
+        console.log("Yo");
       link
         .attr('x1', function (d) {
           // console.log(d.source)
@@ -290,6 +317,7 @@ function make_network (location, timestamp) {
         .attr('y2', function (d) {
           return d.target.y
         })
+        
 
       weightText
         .attr('x', function (d) {
@@ -298,6 +326,7 @@ function make_network (location, timestamp) {
         .attr('y', function (d) {
           return (d.source.y + d.target.y) / 2
         })
+        // .merge(weightText)
 
       node
         .attr('cx', function (d) {
@@ -306,6 +335,7 @@ function make_network (location, timestamp) {
         .attr('cy', function (d) {
           return d.y - 6
         })
+        // .merge(node)
     }
   })
 }
@@ -385,4 +415,8 @@ function make_pie () {
       .style('text-anchor', 'start')
       .text(d => d)
   })
+}
+
+function make_timeseries(employee){
+  
 }
