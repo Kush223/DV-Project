@@ -1,5 +1,5 @@
 let margin_hm,width_hm,height_hm,svg_hm,g_hm
-let margin_ng,width_ng,height_ng,svg_ng,g_ng
+let margin_ng,width_ng,height_ng,svg_ng,g_ng,svg_hg
 
 document.addEventListener('DOMContentLoaded', function () {
   Promise.all([d3.csv('data/heatmap_data.csv')]).then(function (values) {
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     width_hm = 800 - margin_hm.left - margin_hm.right
     height_hm = 600 - margin_hm.top - margin_hm.bottom
 
+    svg_hg = d3.select("#histogram");
     svg_hm = d3
       .select('#heatmap')
       .attr('width', width_hm + margin_hm.left + margin_hm.right)
@@ -281,7 +282,8 @@ function make_network (location, timestamp) {
       .style('fill', '#69b3a2')
       .on("click",function (event, d) {
         console.log(d)
-        make_timeseries();
+        // make_timeseries();
+        make_histogram(d.Name)
       })
 
     // Let's list the force we wanna apply on the network
@@ -419,4 +421,149 @@ function make_pie () {
 
 function make_timeseries(employee){
   
+}
+
+function make_histogram(employee_name){
+  d3.csv("data/Histogram_data.csv").then(function (data) {
+    data.forEach(function (d) {
+        d.credit_price = parseFloat(d.credit_price).toFixed(2);
+        d.loyalty_price = parseFloat(d.loyalty_price).toFixed(2);
+    });
+
+    // Define margins
+    const margin = { top: 50, right: 300, bottom: 10, left: 120 };
+
+    // Get the width and height of the container
+    const width = +svg_hg.style("width").replace("px", "");
+    const height = +svg_hg.style("height").replace("px", "");
+
+    // Calculate the inner width and height
+    const Innerwidth = width - margin.left - margin.right;
+    const Innerheight = height - margin.top - margin.bottom;
+
+    // Create an svg_hg element
+    svg_hg
+        .attr("width", Innerwidth)
+        .attr("height", Innerheight);
+
+    // Define scales for X and Y axes
+    var yScale = d3.scaleBand()
+        .domain(data.map(function(d) { return d.FullName; }))
+        .range([0, Innerheight])
+        .paddingInner(0.9) // Adjust the padding as needed
+        .paddingOuter(0.9);
+
+    var barHeight = yScale.bandwidth();
+
+    var maxExpense = d3.max(data, function(d) {
+        return Math.max(parseFloat(d.credit_price), parseFloat(d.loyalty_price));
+    });
+
+    var xScale = d3.scaleLinear()
+        .domain([0, maxExpense + 500])
+        .range([0, Innerwidth]);
+
+    // Create X and Y axes
+    var xAxis = svg_hg.append("g")
+            .attr("transform", `translate(${margin.left},${Innerheight})`)
+            .call(d3.axisBottom(xScale)
+                .ticks(5) // Adjust the number of ticks as needed
+                .tickFormat(d3.format(".0f")));
+
+    var yAxis = svg_hg.append("g")
+        .attr("transform", "translate(" + margin.left + ", 0)")
+        .call(d3.axisLeft(yScale));
+
+    // Add X-axis label
+    svg_hg.append("text")
+        .attr("transform", `translate(${Innerwidth / 2 + margin.left},${Innerheight + margin.top})`)
+        .style("text-anchor", "middle")
+        .text("Loyalty/Credit Card Expenditure");
+
+    // Add Y-axis label
+    // svg_hg.append("text")
+    //     .attr("transform", "rotate(-90)")
+    //     .attr("y", margin.left - 80)
+    //     .attr("x", 0 - (Innerheight / 2 + margin.top))
+    //     .style("text-anchor", "middle")
+    //     .text("Employee");
+
+    // Create bars for credit card expenses
+    svg_hg.selectAll(".credit-card-bar")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "credit-card-bar")
+        .attr("height", barHeight+5)
+        .attr("y", function(d) { return yScale(d.FullName) + (yScale.bandwidth() - barHeight) / 2; })
+        .attr("x", margin.left) 
+        .attr("width", function(d) { return xScale(parseFloat(d.credit_price)); })
+        .attr("fill", function (d) {
+            return d.FullName === employee_name ? "red" : "black";
+        }); 
+
+    // Create bars for loyalty card expenses
+    svg_hg.selectAll(".loyalty-card-bar")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "loyalty-card-bar")
+        .attr("height", barHeight+5)
+        .attr("y", function(d) { return yScale(d.FullName) - 7; })
+        .attr("x", margin.left) 
+        .attr("width", function(d) { return xScale(parseFloat(d.loyalty_price)); })
+        .attr("fill", function (d) {
+            return d.FullName === employee_name ? "orange" : "blue";
+        });
+
+   // Legend
+   var legendColors = ["black", "blue"];
+   var legend = svg_hg.append("g")
+       .attr("transform", `translate(${Innerwidth + margin.left + 10},${margin.top})`);
+
+   legend.selectAll(".legend-item")
+       .data(["Credit Card", "Loyalty Card"])
+       .enter()
+       .append("g")
+       .attr("class", "legend-item")
+       .attr("transform", function (d, i) { return `translate(0, ${i * 20})`; })
+       .each(function (d, i) {
+           d3.select(this).append("rect")
+               .attr("width", 18)
+               .attr("height", 18)
+               .attr("fill", legendColors[i]);
+
+           d3.select(this).append("text")
+               .attr("x", 25)
+               .attr("y", 9)
+               .attr("dy", ".35em")
+               .style("text-anchor", "start")
+               .text(d);
+       });
+    // Add legend for the specified employee_name
+        var customlegendColors = ["red","orange"]
+        var customLegend = svg_hg.append("g")
+        .attr("transform", `translate(${Innerwidth + margin.left + 10},${margin.top + legendColors.length * 20 + 10})`);
+        
+        customLegend.selectAll(".customlegend-item")
+       .data([employee_name + " Credit Card", employee_name +" Loyalty Card"])
+       .enter()
+       .append("g")
+       .attr("class", "customlegend-item")
+       .attr("transform", function (d, i) { return `translate(0, ${i * 20})`; })
+       .each(function (d, i) {
+           d3.select(this).append("rect")
+               .attr("width", 18)
+               .attr("height", 18)
+               .attr("fill", customlegendColors[i]);
+
+           d3.select(this).append("text")
+               .attr("x", 25)
+               .attr("y", 9)
+               .attr("dy", ".35em")
+               .style("text-anchor", "start")
+               .text(d);
+       });
+        
+            });
 }

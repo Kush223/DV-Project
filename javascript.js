@@ -4,7 +4,7 @@
 //Histogram
 
 
-function Histogram(){
+function Histogram(employee_name){
 
     d3.csv("data/Histogram_data.csv").then(function (data) {
         data.forEach(function (d) {
@@ -16,7 +16,7 @@ function Histogram(){
         var svg = d3.select("#time-series-chart");
 
         // Define margins
-        const margin = { top: 50, right: 150, bottom: 10, left: 120 };
+        const margin = { top: 50, right: 300, bottom: 10, left: 120 };
 
         // Get the width and height of the container
         const width = +svg.style("width").replace("px", "");
@@ -83,7 +83,9 @@ function Histogram(){
             .attr("y", function(d) { return yScale(d.FullName) + (yScale.bandwidth() - barHeight) / 2; })
             .attr("x", margin.left) 
             .attr("width", function(d) { return xScale(parseFloat(d.credit_price)); })
-            .attr("fill", "black");
+            .attr("fill", function (d) {
+                return d.FullName === employee_name ? "red" : "black";
+            }); 
 
         // Create bars for loyalty card expenses
         svg.selectAll(".loyalty-card-bar")
@@ -95,7 +97,9 @@ function Histogram(){
             .attr("y", function(d) { return yScale(d.FullName) - 7; })
             .attr("x", margin.left) 
             .attr("width", function(d) { return xScale(parseFloat(d.loyalty_price)); })
-            .attr("fill", "blue");
+            .attr("fill", function (d) {
+                return d.FullName === employee_name ? "orange" : "blue";
+            });
 
        // Legend
        var legendColors = ["black", "blue"];
@@ -121,8 +125,34 @@ function Histogram(){
                    .style("text-anchor", "start")
                    .text(d);
            });
-    });
+        // Add legend for the specified employee_name
+            var customlegendColors = ["red","orange"]
+            var customLegend = svg.append("g")
+            .attr("transform", `translate(${Innerwidth + margin.left + 10},${margin.top + legendColors.length * 20 + 10})`);
+            
+            customLegend.selectAll(".customlegend-item")
+           .data([employee_name + " Credit Card", employee_name +" Loyalty Card"])
+           .enter()
+           .append("g")
+           .attr("class", "customlegend-item")
+           .attr("transform", function (d, i) { return `translate(0, ${i * 20})`; })
+           .each(function (d, i) {
+               d3.select(this).append("rect")
+                   .attr("width", 18)
+                   .attr("height", 18)
+                   .attr("fill", customlegendColors[i]);
+
+               d3.select(this).append("text")
+                   .attr("x", 25)
+                   .attr("y", 9)
+                   .attr("dy", ".35em")
+                   .style("text-anchor", "start")
+                   .text(d);
+           });
+            
+                });
 }
+
 
 
 
@@ -252,7 +282,7 @@ svg.append("path")
 
     })
 }
-var employee = 'Adra Nubarron';
+
 
 
 
@@ -269,6 +299,7 @@ function TimeseriesFrequency(employee_name){
 
         var svg = d3.select("#time-series-chart");
 
+
         const width = +svg.style("width").replace("px", "");
         const height = +svg.style("height").replace("px", "");
 
@@ -283,8 +314,11 @@ function TimeseriesFrequency(employee_name){
             .append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
+        
+
         data = data.filter(d => d.FullName === employee_name);
 
+        
         const aggregatedData = new Map();
 
         //  // Aggregate data
@@ -310,11 +344,20 @@ function TimeseriesFrequency(employee_name){
             return d;
         });
 
+
+
+
+
+  
+
         aggregatedArray.forEach(d => {
                 d.totalSpending = +d.totalSpending;
             });
 
+
         console.log(aggregatedArray);
+  
+
 
         // Set the domains of the scales
         const xScale = d3.scalePoint()
@@ -363,7 +406,9 @@ function TimeseriesFrequency(employee_name){
         .attr("stroke-width", 2)
         .attr("transform", `translate(${margin.left}, 0)`) 
         .attr("d", line);
-    })
+
+
+})
 }
 
 
