@@ -31,3 +31,7 @@ h1 {
   font-size: 12px;
   fill: #000;
 }
+
+.dropdown-menu li a{
+  cursor: pointer;
+}
