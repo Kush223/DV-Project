@@ -6,6 +6,7 @@
   box-sizing: border-box;
   font-family: 'Raleway', sans-serif;
   font-weight: bold;
+  /* overflow-x: hidden; */
 }
 
 h1 {
@@ -17,7 +18,16 @@ h1 {
   margin-bottom: 40px;
 }
 
-#networkGraph {
-  height: 800px;
-  width: 1000px;
+.x-axis path,
+.x-axis line {
+  fill: none;
+  shape-rendering: crispEdges;
+  stroke: #000;
+  stroke-width: 2px;
+  z-index: 1;
+}
+
+.x-axis text {
+  font-size: 12px;
+  fill: #000;
 }

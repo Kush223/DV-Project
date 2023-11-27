@@ -1,5 +1,5 @@
-let margin_hm,width_hm,height_hm,svg_hm,g_hm
-let margin_ng,width_ng,height_ng,svg_ng,g_ng,svg_hg
+let margin_hm, width_hm, height_hm, svg_hm, g_hm
+let margin_ng, width_ng, height_ng, svg_ng, g_ng, svg_hg
 
 document.addEventListener('DOMContentLoaded', function () {
   Promise.all([d3.csv('data/heatmap_data.csv')]).then(function (values) {
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     width_hm = 800 - margin_hm.left - margin_hm.right
     height_hm = 600 - margin_hm.top - margin_hm.bottom
 
-    svg_hg = d3.select("#histogram");
+    svg_hg = d3.select('#histogram')
     svg_hm = d3
       .select('#heatmap')
       .attr('width', width_hm + margin_hm.left + margin_hm.right)
@@ -17,10 +17,9 @@ document.addEventListener('DOMContentLoaded', function () {
     g_hm = svg_hm
       .append('g')
       .attr('transform', `translate(${margin_hm.left},${margin_hm.top})`)
-
-    margin_ng = { top: 10, right: 30, bottom: 30, left: 40 },
-    width_ng = 1000 - margin_ng.left - margin_ng.right,
-    height_ng = 800 - margin_ng.top - margin_ng.bottom
+    ;(margin_ng = { top: 0, right: 30, bottom: 30, left: 40 }),
+      (width_ng = 1000 - margin_ng.left - margin_ng.right),
+      (height_ng = 800 - margin_ng.top - margin_ng.bottom)
     svg_ng = d3
       .select('#networkGraph')
       .append('svg')
@@ -28,7 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
       .attr('height', height_ng + margin_ng.top + margin_ng.bottom)
     g_ng = svg_ng
       .append('g')
-      .attr('transform', 'translate(' + margin_ng.left + ',' + margin_ng.top + ')')
+      .attr(
+        'transform',
+        'translate(' + margin_ng.left + ',' + margin_ng.top + ')'
+      )
 
     mxt = d3.max(heatmap_data, d => {
       return d.num_transactions
@@ -87,7 +89,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // .padding(0.01);
     const color = d3.scaleLinear().range(['white', 'green']).domain([0, mxt])
 
-    g_hm.selectAll('.cell')
+    g_hm
+      .selectAll('.cell')
       .data(heatmap_data)
       .enter()
       .append('rect')
@@ -96,12 +99,16 @@ document.addEventListener('DOMContentLoaded', function () {
       .attr('width', width_hm / 14)
       .attr('height', height_hm / 26)
       .style('fill', d => color(d.num_transactions))
+      .style('cursor', 'pointer')
       // .attr("stroke","black")
       // .attr("stroke-width","1px")
       .attr('class', 'cell')
+      // .on('click', function (d) {
+      //   d3.select('n_ng').selectAll('*').remove()
+      // })
       .on('click', function (event, d) {
-        console.log(d)
-        // make_pie()
+        console.log('Clicked cell:', d)
+        // d3.select('#networkGraph').remove()
         make_network(d.location, d.timestamp)
       })
 
@@ -175,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
     yAxisGroup.selectAll('text').style('font-size', '6px')
   })
 })
+
 function make_network (location, timestamp) {
   Promise.all([
     d3.csv('data/network_graph.csv'),
@@ -187,20 +195,20 @@ function make_network (location, timestamp) {
     network_data = network_data.filter(
       entry => entry.location === location && entry.day === timestamp
     )
-    const uniquePairsSet = new Set();
-    function getUniquePairKey(obj) {
-        const [nameA, nameB] = [obj.Person1, obj.Person2].sort();
-        return `${nameA}_${nameB}`;
+    const uniquePairsSet = new Set()
+    function getUniquePairKey (obj) {
+      const [nameA, nameB] = [obj.Person1, obj.Person2].sort()
+      return `${nameA}_${nameB}`
     }
 
     network_data = network_data.filter(item => {
-        const pairKey = getUniquePairKey(item);
-        if (!uniquePairsSet.has(pairKey)) {
-            uniquePairsSet.add(pairKey);
-            return true; 
-        }
-        return false;
-    });
+      const pairKey = getUniquePairKey(item)
+      if (!uniquePairsSet.has(pairKey)) {
+        uniquePairsSet.add(pairKey)
+        return true
+      }
+      return false
+    })
     console.log('Network data filtered')
     console.log(network_data)
     let person = [
@@ -244,21 +252,21 @@ function make_network (location, timestamp) {
     console.log(person)
 
     let link = g_ng
-      .selectAll(".ln")
+      .selectAll('.ln')
       .data(ds)
-    // console.log(link);
-    .enter()
+      // console.log(link);
+      .enter()
       .append('line')
-      .attr("class","ln")
+      .attr('class', 'ln')
       // .merge(link)
       .style('stroke', '#aaa')
-      console.log(link);
+    console.log(link)
     var weightText = g_ng
-      .selectAll(".txt")
+      .selectAll('.txt')
       .data(ds)
-    .enter()
+      .enter()
       .append('text')
-      .attr("class","txt")
+      .attr('class', 'txt')
       .attr('x', function (d) {
         return (d.source.x + d.target.x) / 2
       })
@@ -268,25 +276,34 @@ function make_network (location, timestamp) {
       .attr('text-anchor', 'middle')
       .attr('alignment-baseline', 'middle')
       .text(function (d) {
-        return d.weight // Assuming 'weight' is the property in your data
+        return d.weight
       })
 
-    // Initialize the nodes
     var node = g_ng
       .selectAll('.circ')
       .data(person)
-    .enter()
-      .append('circle')
-      .attr("class","circ")
-      .attr('r', 20)
-      .style('fill', '#69b3a2')
-      .on("click",function (event, d) {
-        console.log(d)
-        // make_timeseries();
+      .enter()
+      .append('g')
+      .attr('class', 'circ')
+      .style('cursor', 'pointer')
+      .on('click', function (event, d) {
+        d3.select('#histogram').selectAll('*').remove()
         make_histogram(d.Name)
       })
 
-    // Let's list the force we wanna apply on the network
+    node.append('circle').attr('r', 20).style('fill', '#69b3a2')
+
+    node
+      .append('text')
+      .attr('dy', '.1em')
+      .text(function (d) {
+        return d.Name
+      })
+      .attr('text-anchor', 'middle')
+      .attr('dominant-baseline', 'middle')
+      .style('fill', 'black')
+      .style('font-size', '5px')
+
     var simulation = d3
       .forceSimulation(person) // Force algorithm is applied to data.nodes
       .force(
@@ -304,7 +321,7 @@ function make_network (location, timestamp) {
     // .on('end', () => {})
     // This function is run at each iteration of the force algorithm, updating the nodes position.
     function ticked () {
-        console.log("Yo");
+      console.log('Yo')
       link
         .attr('x1', function (d) {
           // console.log(d.source)
@@ -319,7 +336,6 @@ function make_network (location, timestamp) {
         .attr('y2', function (d) {
           return d.target.y
         })
-        
 
       weightText
         .attr('x', function (d) {
@@ -328,22 +344,18 @@ function make_network (location, timestamp) {
         .attr('y', function (d) {
           return (d.source.y + d.target.y) / 2
         })
-        // .merge(weightText)
+      // .merge(weightText)
 
-      node
-        .attr('cx', function (d) {
-          return d.x + 6
-        })
-        .attr('cy', function (d) {
-          return d.y - 6
-        })
-        // .merge(node)
+      node.attr('transform', function (d) {
+        return 'translate(' + (d.x + 6) + ',' + (d.y - 6) + ')'
+      })
     }
   })
 }
 function make_pie () {
   d3.csv('data/piechart_data.csv').then(function (data) {
     // Nest data by CurrentEmploymentType and calculate the sum of prices
+    console.log('This is a person', person)
     const nestedData = d3
       .nest()
       .key(d => d.CurrentEmploymentType)
@@ -419,66 +431,77 @@ function make_pie () {
   })
 }
 
-function make_timeseries(employee){
-  
-}
+function make_timeseries (employee) {}
 
-function make_histogram(employee_name){
-  d3.csv("data/Histogram_data.csv").then(function (data) {
+function make_histogram (employee_name) {
+  d3.csv('data/Histogram_data.csv').then(function (data) {
     data.forEach(function (d) {
-        d.credit_price = parseFloat(d.credit_price).toFixed(2);
-        d.loyalty_price = parseFloat(d.loyalty_price).toFixed(2);
-    });
+      d.credit_price = parseFloat(d.credit_price).toFixed(2)
+      d.loyalty_price = parseFloat(d.loyalty_price).toFixed(2)
+    })
 
     // Define margins
-    const margin = { top: 50, right: 300, bottom: 10, left: 120 };
+    const margin = { top: 50, right: 300, bottom: 10, left: 120 }
 
     // Get the width and height of the container
-    const width = +svg_hg.style("width").replace("px", "");
-    const height = +svg_hg.style("height").replace("px", "");
+    const width = +svg_hg.style('width').replace('px', '')
+    const height = +svg_hg.style('height').replace('px', '')
 
     // Calculate the inner width and height
-    const Innerwidth = width - margin.left - margin.right;
-    const Innerheight = height - margin.top - margin.bottom;
+    const Innerwidth = width - margin.left - margin.right
+    const Innerheight = height - margin.top - margin.bottom
 
     // Create an svg_hg element
-    svg_hg
-        .attr("width", Innerwidth)
-        .attr("height", Innerheight);
+    svg_hg.attr('width', Innerwidth).attr('height', Innerheight)
 
     // Define scales for X and Y axes
-    var yScale = d3.scaleBand()
-        .domain(data.map(function(d) { return d.FullName; }))
-        .range([0, Innerheight])
-        .paddingInner(0.9) // Adjust the padding as needed
-        .paddingOuter(0.9);
+    var yScale = d3
+      .scaleBand()
+      .domain(
+        data.map(function (d) {
+          return d.FullName
+        })
+      )
+      .range([0, Innerheight])
+      .paddingInner(0.9) // Adjust the padding as needed
+      .paddingOuter(0.9)
 
-    var barHeight = yScale.bandwidth();
+    var barHeight = yScale.bandwidth()
 
-    var maxExpense = d3.max(data, function(d) {
-        return Math.max(parseFloat(d.credit_price), parseFloat(d.loyalty_price));
-    });
+    var maxExpense = d3.max(data, function (d) {
+      return Math.max(parseFloat(d.credit_price), parseFloat(d.loyalty_price))
+    })
 
-    var xScale = d3.scaleLinear()
-        .domain([0, maxExpense + 500])
-        .range([0, Innerwidth]);
+    var xScale = d3
+      .scaleLinear()
+      .domain([0, maxExpense + 500])
+      .range([0, Innerwidth])
 
     // Create X and Y axes
-    var xAxis = svg_hg.append("g")
-            .attr("transform", `translate(${margin.left},${Innerheight})`)
-            .call(d3.axisBottom(xScale)
-                .ticks(5) // Adjust the number of ticks as needed
-                .tickFormat(d3.format(".0f")));
+    var xAxis = svg_hg
+      .append('g')
+      .attr('transform', `translate(${margin.left},${Innerheight})`)
+      .call(
+        d3
+          .axisBottom(xScale)
+          .ticks(5) // Adjust the number of ticks as needed
+          .tickFormat(d3.format('.0f'))
+      )
 
-    var yAxis = svg_hg.append("g")
-        .attr("transform", "translate(" + margin.left + ", 0)")
-        .call(d3.axisLeft(yScale));
+    var yAxis = svg_hg
+      .append('g')
+      .attr('transform', 'translate(' + margin.left + ', 0)')
+      .call(d3.axisLeft(yScale))
 
     // Add X-axis label
-    svg_hg.append("text")
-        .attr("transform", `translate(${Innerwidth / 2 + margin.left},${Innerheight + margin.top})`)
-        .style("text-anchor", "middle")
-        .text("Loyalty/Credit Card Expenditure");
+    svg_hg
+      .append('text')
+      .attr(
+        'transform',
+        `translate(${Innerwidth / 2 + margin.left},${Innerheight + margin.top})`
+      )
+      .style('text-anchor', 'middle')
+      .text('Loyalty/Credit Card Expenditure')
 
     // Add Y-axis label
     // svg_hg.append("text")
@@ -489,81 +512,110 @@ function make_histogram(employee_name){
     //     .text("Employee");
 
     // Create bars for credit card expenses
-    svg_hg.selectAll(".credit-card-bar")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("class", "credit-card-bar")
-        .attr("height", barHeight+5)
-        .attr("y", function(d) { return yScale(d.FullName) + (yScale.bandwidth() - barHeight) / 2; })
-        .attr("x", margin.left) 
-        .attr("width", function(d) { return xScale(parseFloat(d.credit_price)); })
-        .attr("fill", function (d) {
-            return d.FullName === employee_name ? "red" : "black";
-        }); 
+    svg_hg
+      .selectAll('.credit-card-bar')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('class', 'credit-card-bar')
+      .attr('height', barHeight + 5)
+      .attr('y', function (d) {
+        return yScale(d.FullName) + (yScale.bandwidth() - barHeight) / 2
+      })
+      .attr('x', margin.left)
+      .attr('width', function (d) {
+        return xScale(parseFloat(d.credit_price))
+      })
+      .attr('fill', function (d) {
+        return d.FullName === employee_name ? 'red' : 'black'
+      })
 
     // Create bars for loyalty card expenses
-    svg_hg.selectAll(".loyalty-card-bar")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("class", "loyalty-card-bar")
-        .attr("height", barHeight+5)
-        .attr("y", function(d) { return yScale(d.FullName) - 7; })
-        .attr("x", margin.left) 
-        .attr("width", function(d) { return xScale(parseFloat(d.loyalty_price)); })
-        .attr("fill", function (d) {
-            return d.FullName === employee_name ? "orange" : "blue";
-        });
+    svg_hg
+      .selectAll('.loyalty-card-bar')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('class', 'loyalty-card-bar')
+      .attr('height', barHeight + 5)
+      .attr('y', function (d) {
+        return yScale(d.FullName) - 7
+      })
+      .attr('x', margin.left)
+      .attr('width', function (d) {
+        return xScale(parseFloat(d.loyalty_price))
+      })
+      .attr('fill', function (d) {
+        return d.FullName === employee_name ? 'orange' : 'blue'
+      })
 
-   // Legend
-   var legendColors = ["black", "blue"];
-   var legend = svg_hg.append("g")
-       .attr("transform", `translate(${Innerwidth + margin.left + 10},${margin.top})`);
+    // Legend
+    var legendColors = ['black', 'blue']
+    var legend = svg_hg
+      .append('g')
+      .attr(
+        'transform',
+        `translate(${Innerwidth + margin.left + 10},${margin.top})`
+      )
 
-   legend.selectAll(".legend-item")
-       .data(["Credit Card", "Loyalty Card"])
-       .enter()
-       .append("g")
-       .attr("class", "legend-item")
-       .attr("transform", function (d, i) { return `translate(0, ${i * 20})`; })
-       .each(function (d, i) {
-           d3.select(this).append("rect")
-               .attr("width", 18)
-               .attr("height", 18)
-               .attr("fill", legendColors[i]);
+    legend
+      .selectAll('.legend-item')
+      .data(['Credit Card', 'Loyalty Card'])
+      .enter()
+      .append('g')
+      .attr('class', 'legend-item')
+      .attr('transform', function (d, i) {
+        return `translate(0, ${i * 20})`
+      })
+      .each(function (d, i) {
+        d3.select(this)
+          .append('rect')
+          .attr('width', 18)
+          .attr('height', 18)
+          .attr('fill', legendColors[i])
 
-           d3.select(this).append("text")
-               .attr("x", 25)
-               .attr("y", 9)
-               .attr("dy", ".35em")
-               .style("text-anchor", "start")
-               .text(d);
-       });
+        d3.select(this)
+          .append('text')
+          .attr('x', 25)
+          .attr('y', 9)
+          .attr('dy', '.35em')
+          .style('text-anchor', 'start')
+          .text(d)
+      })
     // Add legend for the specified employee_name
-        var customlegendColors = ["red","orange"]
-        var customLegend = svg_hg.append("g")
-        .attr("transform", `translate(${Innerwidth + margin.left + 10},${margin.top + legendColors.length * 20 + 10})`);
-        
-        customLegend.selectAll(".customlegend-item")
-       .data([employee_name + " Credit Card", employee_name +" Loyalty Card"])
-       .enter()
-       .append("g")
-       .attr("class", "customlegend-item")
-       .attr("transform", function (d, i) { return `translate(0, ${i * 20})`; })
-       .each(function (d, i) {
-           d3.select(this).append("rect")
-               .attr("width", 18)
-               .attr("height", 18)
-               .attr("fill", customlegendColors[i]);
+    var customlegendColors = ['red', 'orange']
+    var customLegend = svg_hg
+      .append('g')
+      .attr(
+        'transform',
+        `translate(${Innerwidth + margin.left + 10},${
+          margin.top + legendColors.length * 20 + 10
+        })`
+      )
 
-           d3.select(this).append("text")
-               .attr("x", 25)
-               .attr("y", 9)
-               .attr("dy", ".35em")
-               .style("text-anchor", "start")
-               .text(d);
-       });
-        
-            });
+    customLegend
+      .selectAll('.customlegend-item')
+      .data([employee_name + ' Credit Card', employee_name + ' Loyalty Card'])
+      .enter()
+      .append('g')
+      .attr('class', 'customlegend-item')
+      .attr('transform', function (d, i) {
+        return `translate(0, ${i * 20})`
+      })
+      .each(function (d, i) {
+        d3.select(this)
+          .append('rect')
+          .attr('width', 18)
+          .attr('height', 18)
+          .attr('fill', customlegendColors[i])
+
+        d3.select(this)
+          .append('text')
+          .attr('x', 25)
+          .attr('y', 9)
+          .attr('dy', '.35em')
+          .style('text-anchor', 'start')
+          .text(d)
+      })
+  })
 }

@@ -6,15 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Visualizations with Bootstrap</title>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <style>
   #networkGraph {
-    height: 800px;
+    height: 600px;
     width: 1000px;
   }
-  #histogram{
+
+  #histogram {
     width: 1000px;
     height: 800px;
     background-color: white;
@@ -22,19 +24,6 @@
     border-radius: 3px;
     margin: 0 auto;
     display: block;
-  }
-  .x-axis path,
-  .x-axis line {
-      fill: none;
-      shape-rendering: crispEdges;
-      stroke: #000;
-      stroke-width: 2px;
-      z-index: 1;
-  }
-
-  .x-axis text {
-              font-size: 12px;
-              fill: #000;
   }
 </style>
 
@@ -56,10 +45,9 @@
       <div class="row">
         <div class="col">
           <h2>Network Graph</h2>
-          <svg id="networkGraph"></svg>
+          <svg id="networkGraph" class="m-0 p-0"></svg>
         </div>
       </div>
-
     </div>
 
     <div class="row">
@@ -69,14 +57,28 @@
           <svg id="pieChart"></svg>
         </div>
       </div>
-      
-    </div>
-    <div class="col-6">
-      <div class="histogram-container" style="width: 80%;">
-        <h2>Histogram</h2>
-        <svg id="histogram" width="1000px" height="800px"></svg>
+
+      <div class="col-6">
+        <div class="histogram-container" style="width: 80%;">
+          <h2>Histogram</h2>
+          <svg id="histogram" width="1000px" height="800px"></svg>
+        </div>
       </div>
     </div>
+
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Dropdown
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <button class="dropdown-item" type="button">Action</button>
+        <button class="dropdown-item" type="button">Another action</button>
+        <button class="dropdown-item" type="button">Something else here</button>
+      </div>
+    </div>
+
+
     <div class="time-container">
       <div class="row">
         <div class="col">
@@ -87,10 +89,9 @@
     </div>
   </div>
 
-  <!-- Bootstrap JS and Popper.js -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="./main.js"></script>
 </body>
