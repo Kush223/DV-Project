@@ -1,4 +1,4 @@
-let margin_hm,width_hm,height_hm,svg_hm,g_hm
+let margin_hm,width_hm,height_hm,svg_hm,g_hm,svg_ts
 let margin_ng,width_ng,height_ng,svg_ng,g_ng,svg_hg
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', function () {
     margin_hm = { top: 50, right: 50, bottom: 50, left: 80 }
     width_hm = 800 - margin_hm.left - margin_hm.right
     height_hm = 600 - margin_hm.top - margin_hm.bottom
-
+    
+    svg_ts = d3.select("#time-series-chart");
     svg_hg = d3.select("#histogram");
     svg_hm = d3
       .select('#heatmap')
@@ -259,12 +260,12 @@ function make_network (location, timestamp) {
     .enter()
       .append('text')
       .attr("class","txt")
-      .attr('x', function (d) {
-        return (d.source.x + d.target.x) / 2
-      })
-      .attr('y', function (d) {
-        return (d.source.y + d.target.y) / 2
-      })
+      // .attr('x', function (d) {
+      //   return (d.source.x + d.target.x) / 2
+      // })
+      // .attr('y', function (d) {
+      //   return (d.source.y + d.target.y) / 2
+      // })
       .attr('text-anchor', 'middle')
       .attr('alignment-baseline', 'middle')
       .text(function (d) {
@@ -284,6 +285,8 @@ function make_network (location, timestamp) {
         console.log(d)
         // make_timeseries();
         make_histogram(d.Name)
+        TimeseriesAmount(d.Name,location,timestamp)
+        // TimeseriesFrequency(d.Name)
       })
 
     // Let's list the force we wanna apply on the network
@@ -417,10 +420,6 @@ function make_pie () {
       .style('text-anchor', 'start')
       .text(d => d)
   })
-}
-
-function make_timeseries(employee){
-  
 }
 
 function make_histogram(employee_name){
@@ -566,4 +565,244 @@ function make_histogram(employee_name){
        });
         
             });
+}
+
+function TimeseriesAmount(employee_name, location, targetDate) {
+  console.log(targetDate);
+  d3.csv("data/timeseries_data.csv").then(function (data) {
+      data.forEach(function (d) {
+          d.price = parseFloat(d.price);
+          // d.timestamp = new Date(d.timestamp); // Assuming timestamp is in a date format
+      });
+      targetDate =new Date(targetDate)
+      const width = +svg_ts.style("width").replace("px", "");
+      const height = +svg_ts.style("height").replace("px", "");
+      console.log(employee_name + " " +location+" "+targetDate);
+      const margin = { top: 60, right: 20, bottom: 35, left: 120 };
+
+      const Innerwidth = width - margin.left - margin.right;
+      const Innerheight = height - margin.top - margin.bottom;
+
+      svg_ts
+          .attr("width", Innerwidth)
+          .attr("height", Innerheight)
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      
+      const minTimestamp = d3.min(data, d => new Date(d.timestamp));
+      const maxTimestamp = d3.max(data, d => new Date(d.timestamp));
+      const allDates = [minTimestamp, ...d3.timeDays(minTimestamp, maxTimestamp)];
+
+      data = data.filter(d => d.FullName === employee_name && d.location === location);
+      const aggregatedData = new Map();
+      // Aggregate data
+      data.forEach(d => {
+        const key = `${d.FullName}-${d.timestamp}`;
+        if (!aggregatedData.has(key)) {
+            aggregatedData.set(key, {
+                employee: d.FullName,
+                location: d.location,
+                day: new Date(d.timestamp).toISOString().split('T')[0],
+                totalSpending: d.price,
+                frequency: 1
+            });
+        } else {
+            const existingData = aggregatedData.get(key);
+            existingData.totalSpending += d.price;
+            existingData.frequency += 1;
+        }
+    });
+
+      const aggregatedArray = Array.from(aggregatedData.values()).map(d => {
+          d.totalSpending = parseFloat(d.totalSpending.toFixed(2));
+          return d;
+      });
+
+      // Initialize the dataByDay object
+      var dataByDay = allDates.map(date => {
+        return {
+            day: date.toISOString().split('T')[0],
+            totalSpending: 0,
+            frequency: 0
+        };
+      });
+
+      // Update dataByDay with values from aggregatedArray
+      dataByDay.forEach(dayData => {
+        const matchingAggregatedData = aggregatedArray.find(d => d.day === dayData.day);
+        if (matchingAggregatedData) {
+            dayData.totalSpending = matchingAggregatedData.totalSpending;
+            dayData.frequency = matchingAggregatedData.frequency;
+        }
+      });
+      aggregatedArray.forEach(d => {
+        d.totalSpending = +d.totalSpending;
+      });
+      const xScale = d3.scalePoint()
+          .domain(dataByDay.map(d => d.day))
+          .range([0, Innerwidth])
+          .padding(0.5);
+
+      const yScale = d3.scaleLinear()
+          .domain([0, d3.max(dataByDay, d => d.totalSpending) + 10])
+          .range([Innerheight, 0]);
+
+      const line = d3.line()
+          .x(d => xScale(d.day))
+          .y(d => yScale(d.totalSpending));
+
+      svg_ts.append("g")
+          .attr("transform", `translate(${margin.left},${Innerheight})`)
+          .call(d3.axisBottom(xScale));
+
+      svg_ts.append("g")
+          .attr("transform", `translate(${margin.left}, 0)`)
+          .call(d3.axisLeft(yScale));
+
+      svg_ts.append("text")
+        .attr("x", Innerwidth / 2 + margin.left)  // Centered on the x-axis
+        .attr("y", Innerheight + margin.top) // Positioned below the x-axis
+        .style("text-anchor", "middle")
+        .text("Timestamp");
+
+      // Add y-axis label
+      svg_ts.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -Innerheight / 2 - margin.top) // Centered on the y-axis
+        .attr("y", margin.left - 50) // Positioned to the left of the y-axis
+        .style("text-anchor", "middle")
+        .text("Total Spending");
+
+      // Draw the line
+      svg_ts.append("path")
+          .datum(dataByDay)
+          .attr("fill", "none")
+          .attr("stroke", "steelblue")
+          .attr("stroke-width", 2)
+          .attr("transform", `translate(${margin.left}, 0)`)
+          .attr("d", line);
+
+      const highlightedDateStr = targetDate.toISOString().split('T')[0];
+      console.log("Highlighted Date Format:", highlightedDateStr);
+
+      const highlightedData = dataByDay.find(d => {
+          console.log("Data Day Format:", d.day);
+          return d.day === highlightedDateStr;
+      });
+
+      if (highlightedData) {
+          svg_ts.append("circle")
+              .attr("cx", xScale(highlightedData.day))
+              .attr("cy", yScale(highlightedData.totalSpending))
+              .attr("r", 5)
+              .attr("fill", "red")
+              .attr("transform", `translate(${margin.left}, 0)`);
+      }
+  });
+}
+
+// var givenDate = new Date("2014-01-07");
+// var givenlocation = "Abila Zacharo";
+// var givenemployee = "Ada Campo-Corrente";
+// TimeseriesAmount(givenemployee, givenlocation, givenDate);
+
+function TimeseriesFrequency(employee_name) {
+  d3.csv("data/timeseries_data.csv").then(function (data) {
+      data.forEach(function (d) {
+          d.price = parseFloat(d.price);
+      });
+
+      
+      const width = +svg_ts.style("width").replace("px", "");
+      const height = +svg_ts.style("height").replace("px", "");
+      const margin = { top: 60, right: 20, bottom: 35, left: 120 };
+      const Innerwidth = width - margin.left - margin.right;
+      const Innerheight = height - margin.top - margin.bottom;
+
+      svg_ts
+          .attr("width", Innerwidth)
+          .attr("height", Innerheight)
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      data = data.filter(d => d.FullName === employee_name);
+      const aggregatedData = new Map();
+
+      //  // Aggregate data
+      data.forEach(d => {
+          const key = `${d.FullName}-${d.day}`;
+          if (!aggregatedData.has(key)) {
+              aggregatedData.set(key, {
+                  employee: d.FullName,
+                  location: d.location,
+                  day: d.day,
+                  totalSpending: d.price,
+                  frequency: 1
+              });
+          } else {
+              const existingData = aggregatedData.get(key);
+              existingData.totalSpending += d.price;
+              existingData.frequency += 1;
+          }
+      });
+
+      const aggregatedArray = Array.from(aggregatedData.values()).map(d => {
+          d.totalSpending = parseFloat(d.totalSpending.toFixed(2));
+          return d;
+      });
+      aggregatedArray.forEach(d => {
+          d.totalSpending = +d.totalSpending;
+      });
+      console.log(aggregatedArray);
+
+      // Set the domains of the scales
+      const xScale = d3.scalePoint()
+          .domain(aggregatedArray.map(d => d.day))
+          .range([0, Innerwidth])
+          .padding(0.5);
+
+      const yScale = d3.scaleLinear()
+          .domain([0, d3.max(aggregatedArray, d => d.frequency) + 2])
+          .range([Innerheight, 0]);
+
+      // Set up the line generator
+      const line = d3.line()
+          .x(d => xScale(d.day))
+          .y(d => yScale(d.frequency));
+
+      // Draw the x-axis
+      svg_ts.append("g")
+          .attr("transform", `translate(${margin.left},${Innerheight})`)
+          .call(d3.axisBottom(xScale));
+
+      // Draw the y-axis
+      svg_ts.append("g")
+          .attr("transform", `translate(${margin.left}, 0)`)
+          .call(d3.axisLeft(yScale));
+
+      svg_ts.append("text")
+          .attr("x", Innerwidth / 2 + margin.left)  // Centered on the x-axis
+          .attr("y", Innerheight + margin.top) // Positioned below the x-axis
+          .style("text-anchor", "middle")
+          .text("Timestamp");
+
+      // Add y-axis label
+      svg_ts.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("x", -Innerheight / 2 - margin.top) // Centered on the y-axis
+          .attr("y", margin.left - 50) // Positioned to the left of the y-axis
+          .style("text-anchor", "middle")
+          .text("Frequency");
+
+      // Draw the line
+      svg_ts.append("path")
+          .datum(aggregatedArray)
+          .attr("fill", "none")
+          .attr("stroke", "steelblue")
+          .attr("stroke-width", 2)
+          .attr("transform", `translate(${margin.left}, 0)`)
+          .attr("d", line);
+
+  })
 }

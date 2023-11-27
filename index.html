@@ -11,12 +11,21 @@
 </head>
 <style>
   #networkGraph {
-    height: 800px;
+    height: 500px;
     width: 1000px;
   }
   #histogram{
     width: 1000px;
-    height: 800px;
+    height: 650px;
+    background-color: white;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px;
+    margin: 0 auto;
+    display: block;
+  }
+  #time-series-chart{
+    width: 1000px;
+    height: 500px;
     background-color: white;
     border: 1px solid #d3d3d3;
     border-radius: 3px;
@@ -74,14 +83,14 @@
     <div class="col-6">
       <div class="histogram-container" style="width: 80%;">
         <h2>Histogram</h2>
-        <svg id="histogram" width="1000px" height="800px"></svg>
+        <svg id="histogram" width="1000px" height="650px"></svg>
       </div>
     </div>
-    <div class="time-container">
+    <div class="time-container" style="width: 80%;">
       <div class="row">
         <div class="col">
           <h2>Time Series</h2>
-          <svg id="timeSeries"></svg>
+          <svg id="time-series-chart" width="1000px" height="500px"></svg>
         </div>
       </div>
     </div>
