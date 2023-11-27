@@ -290,8 +290,8 @@ function make_network (location, timestamp) {
       .on('click', function (event, d) {
         d3.select('#histogram').selectAll('*').remove()
         make_histogram(d.Name)
-        TimeseriesAmount(d.Name,location,timestamp)
-        // TimeseriesFrequency(d.Name)
+        // TimeseriesAmount(d.Name,location,timestamp)
+        TimeseriesFrequency(d.Name,location,timestamp)
       })
 
     node.append('circle').attr('r', 20).style('fill', '#69b3a2')
@@ -355,84 +355,84 @@ function make_network (location, timestamp) {
     }
   })
 }
-function make_pie () {
-  d3.csv('data/piechart_data.csv').then(function (data) {
-    // Nest data by CurrentEmploymentType and calculate the sum of prices
-    console.log('This is a person', person)
-    const nestedData = d3
-      .nest()
-      .key(d => d.CurrentEmploymentType)
-      .rollup(group => d3.sum(group, d => +d.price)) // Convert to a number
-      .entries(data)
+// function make_pie () {
+//   d3.csv('data/piechart_data.csv').then(function (data) {
+//     // Nest data by CurrentEmploymentType and calculate the sum of prices
+//     console.log('This is a person', person)
+//     const nestedData = d3
+//       .nest()
+//       .key(d => d.CurrentEmploymentType)
+//       .rollup(group => d3.sum(group, d => +d.price)) // Convert to a number
+//       .entries(data)
 
-    // Process the nested data
-    const processedData = nestedData.map(d => ({
-      type: d.key,
-      totalAmount: d.value
-    }))
+//     // Process the nested data
+//     const processedData = nestedData.map(d => ({
+//       type: d.key,
+//       totalAmount: d.value
+//     }))
 
-    // Set up the pie chart dimensions
-    const width = 700
-    const height = 300
-    const radius = Math.min(width, height) / 2
+//     // Set up the pie chart dimensions
+//     const width = 700
+//     const height = 300
+//     const radius = Math.min(width, height) / 2
 
-    // Set up colors for the pie chart
-    const color = d3
-      .scaleOrdinal()
-      .domain(processedData.map(d => d.type))
-      .range(['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50', '#FF5733', '#8E44AD']) // Add more colors as needed
+//     // Set up colors for the pie chart
+//     const color = d3
+//       .scaleOrdinal()
+//       .domain(processedData.map(d => d.type))
+//       .range(['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50', '#FF5733', '#8E44AD']) // Add more colors as needed
 
-    // Create an SVG element
-    const svg = d3
-      .select('#employeePieChart')
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
-      .append('g')
-      .attr('transform', `translate(${width / 2},${height / 2})`)
+//     // Create an SVG element
+//     const svg = d3
+//       .select('#employeePieChart')
+//       .append('svg')
+//       .attr('width', width)
+//       .attr('height', height)
+//       .append('g')
+//       .attr('transform', `translate(${width / 2},${height / 2})`)
 
-    // Generate the pie chart
-    const pie = d3.pie().value(d => d.totalAmount)
-    const path = d3.arc().outerRadius(radius).innerRadius(0)
+//     // Generate the pie chart
+//     const pie = d3.pie().value(d => d.totalAmount)
+//     const path = d3.arc().outerRadius(radius).innerRadius(0)
 
-    const arcs = svg
-      .selectAll('arc')
-      .data(pie(processedData))
-      .enter()
-      .append('g')
+//     const arcs = svg
+//       .selectAll('arc')
+//       .data(pie(processedData))
+//       .enter()
+//       .append('g')
 
-    arcs
-      .append('path')
-      .attr('d', path)
-      .attr('fill', d => color(d.data.type))
+//     arcs
+//       .append('path')
+//       .attr('d', path)
+//       .attr('fill', d => color(d.data.type))
 
-    // Add a legend with some separation
-    const legend = svg
-      .selectAll('.legend')
-      .data(processedData.map(d => d.type))
-      .enter()
-      .append('g')
-      .attr('class', 'legend')
-      .attr(
-        'transform',
-        (d, i) => `translate(-${width / 2 + 10},${i * 25 - height / 2 + 10})`
-      )
+//     // Add a legend with some separation
+//     const legend = svg
+//       .selectAll('.legend')
+//       .data(processedData.map(d => d.type))
+//       .enter()
+//       .append('g')
+//       .attr('class', 'legend')
+//       .attr(
+//         'transform',
+//         (d, i) => `translate(-${width / 2 + 10},${i * 25 - height / 2 + 10})`
+//       )
 
-    legend
-      .append('rect')
-      .attr('width', 18)
-      .attr('height', 18)
-      .style('fill', color)
+//     legend
+//       .append('rect')
+//       .attr('width', 18)
+//       .attr('height', 18)
+//       .style('fill', color)
 
-    legend
-      .append('text')
-      .attr('x', 24)
-      .attr('y', 9)
-      .attr('dy', '.35em')
-      .style('text-anchor', 'start')
-      .text(d => d)
-  })
-}
+//     legend
+//       .append('text')
+//       .attr('x', 24)
+//       .attr('y', 9)
+//       .attr('dy', '.35em')
+//       .style('text-anchor', 'start')
+//       .text(d => d)
+//   })
+// }
 
 function make_histogram(employee_name){
   d3.csv("data/Histogram_data.csv").then(function (data) {
@@ -504,15 +504,6 @@ function make_histogram(employee_name){
       .style('text-anchor', 'middle')
       .text('Loyalty/Credit Card Expenditure')
 
-    // Add Y-axis label
-    // svg_hg.append("text")
-    //     .attr("transform", "rotate(-90)")
-    //     .attr("y", margin.left - 80)
-    //     .attr("x", 0 - (Innerheight / 2 + margin.top))
-    //     .style("text-anchor", "middle")
-    //     .text("Employee");
-
-    // Create bars for credit card expenses
     svg_hg
       .selectAll('.credit-card-bar')
       .data(data)
@@ -689,7 +680,7 @@ function TimeseriesAmount(employee_name, location, targetDate) {
           .padding(0.5);
 
       const yScale = d3.scaleLinear()
-          .domain([0, d3.max(dataByDay, d => d.totalSpending) + 10])
+          .domain([0, d3.max(dataByDay, d => d.totalSpending) + 5])
           .range([Innerheight, 0]);
 
       const line = d3.line()
@@ -746,21 +737,18 @@ function TimeseriesAmount(employee_name, location, targetDate) {
   });
 }
 
-// var givenDate = new Date("2014-01-07");
-// var givenlocation = "Abila Zacharo";
-// var givenemployee = "Ada Campo-Corrente";
-// TimeseriesAmount(givenemployee, givenlocation, givenDate);
 
-function TimeseriesFrequency(employee_name) {
+function TimeseriesFrequency(employee_name, location, day) {
   d3.csv("data/timeseries_data.csv").then(function (data) {
+      day=new Date(day)
       data.forEach(function (d) {
           d.price = parseFloat(d.price);
       });
-
-      
       const width = +svg_ts.style("width").replace("px", "");
       const height = +svg_ts.style("height").replace("px", "");
+
       const margin = { top: 60, right: 20, bottom: 35, left: 120 };
+
       const Innerwidth = width - margin.left - margin.right;
       const Innerheight = height - margin.top - margin.bottom;
 
@@ -770,17 +758,25 @@ function TimeseriesFrequency(employee_name) {
           .append("g")
           .attr("transform", `translate(${margin.left},${margin.top})`);
 
-      data = data.filter(d => d.FullName === employee_name);
+      const minTimestamp = d3.min(data, d => new Date(d.timestamp));
+      const maxTimestamp = d3.max(data, d => new Date(d.timestamp));
+      // console.log(minTimestamp);
+      // console.log(maxTimestamp);
+
+      const allDates = [minTimestamp, ...d3.timeDays(minTimestamp, maxTimestamp)];
+      // console.log(allDates)
+
+      data = data.filter(d => d.FullName === employee_name && d.location === location);
       const aggregatedData = new Map();
 
-      //  // Aggregate data
+      // Aggregate data
       data.forEach(d => {
-          const key = `${d.FullName}-${d.day}`;
+          const key = `${d.FullName}-${d.timestamp}`;
           if (!aggregatedData.has(key)) {
               aggregatedData.set(key, {
                   employee: d.FullName,
                   location: d.location,
-                  day: d.day,
+                  day: new Date(d.timestamp).toISOString().split('T')[0],
                   totalSpending: d.price,
                   frequency: 1
               });
@@ -795,19 +791,37 @@ function TimeseriesFrequency(employee_name) {
           d.totalSpending = parseFloat(d.totalSpending.toFixed(2));
           return d;
       });
+
+      // Initialize the dataByDay object
+      var dataByDay = allDates.map(date => {
+          return {
+              day: date.toISOString().split('T')[0],
+              totalSpending: 0,
+              frequency: 0
+          };
+      });
+
+      // Update dataByDay with values from aggregatedArray
+      dataByDay.forEach(dayData => {
+          const matchingAggregatedData = aggregatedArray.find(d => d.day === dayData.day);
+          if (matchingAggregatedData) {
+              dayData.totalSpending = matchingAggregatedData.totalSpending;
+              dayData.frequency = matchingAggregatedData.frequency;
+          }
+      });
+
       aggregatedArray.forEach(d => {
           d.totalSpending = +d.totalSpending;
       });
-      console.log(aggregatedArray);
 
       // Set the domains of the scales
       const xScale = d3.scalePoint()
-          .domain(aggregatedArray.map(d => d.day))
+          .domain(dataByDay.map(d => d.day))
           .range([0, Innerwidth])
           .padding(0.5);
 
       const yScale = d3.scaleLinear()
-          .domain([0, d3.max(aggregatedArray, d => d.frequency) + 2])
+          .domain([0, d3.max(dataByDay, d => d.frequency) + 2])
           .range([Innerheight, 0]);
 
       // Set up the line generator
@@ -841,12 +855,28 @@ function TimeseriesFrequency(employee_name) {
 
       // Draw the line
       svg_ts.append("path")
-          .datum(aggregatedArray)
+          .datum(dataByDay)
           .attr("fill", "none")
           .attr("stroke", "steelblue")
           .attr("stroke-width", 2)
           .attr("transform", `translate(${margin.left}, 0)`)
           .attr("d", line);
 
+      const highlightedDateStr = day.toISOString().split('T')[0];
+      // console.log("Highlighted Date Format:", highlightedDateStr);
+
+      const highlightedData = dataByDay.find(d => {
+          console.log("Data Day Format:", d.day);
+          return d.day === highlightedDateStr;
+      });
+
+      if (highlightedData) {
+          svg_ts.append("circle")
+              .attr("cx", xScale(highlightedData.day))
+              .attr("cy", yScale(highlightedData.frequency))
+              .attr("r", 5)
+              .attr("fill", "red")
+              .attr("transform", `translate(${margin.left}, 0)`);
+      }
   })
 }
