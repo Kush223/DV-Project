@@ -252,51 +252,33 @@ function make_network (location, timestamp) {
     console.log('Person data final')
     console.log(person)
 
-    let link = g_ng
-      .selectAll('.ln')
-      .data(ds)
-      // console.log(link);
-      .enter()
-      .append('line')
-      .attr('class', 'ln')
-      // .merge(link)
-      .style('stroke', '#aaa')
-    console.log(link)
-    var weightText = g_ng
-      .selectAll('.txt')
-      .data(ds)
-      .enter()
-      .append('text')
-      .attr("class","txt")
-      // .attr('x', function (d) {
-      //   return (d.source.x + d.target.x) / 2
-      // })
-      // .attr('y', function (d) {
-      //   return (d.source.y + d.target.y) / 2
-      // })
+    var link = g_ng.selectAll('.ln').data(ds);
+    link.exit().remove();
+    link = link.enter().append('line').attr('class', 'ln').merge(link);
+    link.style('stroke', '#aaa');
+
+    var weightText = g_ng.selectAll('.txt').data(ds);
+    weightText.exit().remove();
+    weightText = weightText.enter().append('text').attr('class', 'txt').merge(weightText);
+    weightText
       .attr('text-anchor', 'middle')
       .attr('alignment-baseline', 'middle')
       .text(function (d) {
-        return d.weight
-      })
+        return d.weight;
+      });
 
     var node = g_ng
       .selectAll('.circ')
       .data(person)
-      .enter()
+    node.exit().remove();
+    var extra_nodes=node.enter()
       .append('g')
       .attr('class', 'circ')
-      .style('cursor', 'pointer')
-      .on('click', function (event, d) {
-        d3.select('#histogram').selectAll('*').remove()
-        make_histogram(d.Name)
-        // TimeseriesAmount(d.Name,location,timestamp)
-        TimeseriesFrequency(d.Name,location,timestamp)
-      })
+      // .merge(node)
+    
+    extra_nodes.append('circle').attr('r', 20).style('fill', '#69b3a2')
 
-    node.append('circle').attr('r', 20).style('fill', '#69b3a2')
-
-    node
+    extra_nodes
       .append('text')
       .attr('dy', '.1em')
       .text(function (d) {
@@ -307,51 +289,35 @@ function make_network (location, timestamp) {
       .style('fill', 'black')
       .style('font-size', '5px')
 
-    var simulation = d3
-      .forceSimulation(person) // Force algorithm is applied to data.nodes
-      .force(
-        'link',
-        d3
-          .forceLink(ds) // This force provides links between nodes
-          .id(function (d) {
-            return d.id
-          }) // This provide  the id of a node
-      )
-      .force('charge', d3.forceManyBody().strength(-400)) // This adds repulsion between nodes. Play with the -400 for the repulsion strength
-      .force('center', d3.forceCenter(width_ng / 2, height_ng / 2)) // This force attracts nodes to the center of the svg area
-      .on('end', ticked)
-    simulation.alphaDecay(0.1).restart()
-    // .on('end', () => {})
-    // This function is run at each iteration of the force algorithm, updating the nodes position.
-    function ticked () {
-      console.log('Yo')
-      link
-        .attr('x1', function (d) {
-          // console.log(d.source)
-          return d.source.x
-        })
-        .attr('y1', function (d) {
-          return d.source.y
-        })
-        .attr('x2', function (d) {
-          return d.target.x
-        })
-        .attr('y2', function (d) {
-          return d.target.y
-        })
-
-      weightText
-        .attr('x', function (d) {
-          return (d.source.x + d.target.x) / 2
-        })
-        .attr('y', function (d) {
-          return (d.source.y + d.target.y) / 2
-        })
-      // .merge(weightText)
-
-      node.attr('transform', function (d) {
-        return 'translate(' + (d.x + 6) + ',' + (d.y - 6) + ')'
+    node=node.merge(extra_nodes)
+    node.style('cursor', 'pointer')
+      .on('click', function (event, d) {
+        d3.select('#histogram').selectAll('*').remove()
+        make_histogram(d.Name)
+        // TimeseriesAmount(d.Name,location,timestamp)
+        TimeseriesFrequency(d.Name,location,timestamp)
       })
+
+    var simulation = d3.forceSimulation(person)
+    .force('link', d3.forceLink(ds).id(function (d) { return d.id; }))
+    .force('charge', d3.forceManyBody().strength(-400))
+    .force('center', d3.forceCenter(width_ng / 2, height_ng / 2))
+    .on('end', ticked);
+    simulation.alphaDecay(0.1).restart();
+    function ticked() {
+      link
+        .attr('x1', function (d) { return d.source.x; })
+        .attr('y1', function (d) { return d.source.y; })
+        .attr('x2', function (d) { return d.target.x; })
+        .attr('y2', function (d) { return d.target.y; });
+    
+      weightText
+        .attr('x', function (d) { return (d.source.x + d.target.x) / 2; })
+        .attr('y', function (d) { return (d.source.y + d.target.y) / 2; });
+    
+      node.attr('transform', function (d) {
+        return 'translate(' + (d.x + 6) + ',' + (d.y - 6) + ')';
+      });
     }
   })
 }
