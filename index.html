@@ -11,27 +11,35 @@
   <link rel="stylesheet" href="./styles.css">
 </head>
 <style>
+  #heat-container {
+    /* background-color: white;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px; */
+  }
+
   #networkGraph {
-    height: 500px;
     width: 1000px;
+    height: 500px;
+    /* background-color: white;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px; */
   }
 
   #histogram {
     width: 1000px;
     height: 650px;
-    background-color: white;
+    /* background-color: white;
     border: 1px solid #d3d3d3;
-    border-radius: 3px;
-    margin: 0 auto;
+    border-radius: 3px; */
     display: block;
   }
-  #time-series-chart{
+
+  #time-series-chart {
     width: 1000px;
     height: 500px;
-    background-color: white;
+    /* background-color: white;
     border: 1px solid #d3d3d3;
-    border-radius: 3px;
-    margin: 0 auto;
+    border-radius: 3px; */
     display: block;
   }
 </style>
@@ -41,7 +49,7 @@
   <div class="container text-center">
     <h1 class="m-2">Data Visualizations</h1>
 
-    <div class="bar-container">
+    <div class="heat-container m-4">
       <div class="row">
         <div class="col">
           <h2>Heat Map</h2>
@@ -50,38 +58,39 @@
       </div>
     </div>
 
-    <div class="network-container">
+    <div class="network-container m-4">
       <div class="row">
         <div class="col">
           <h2>Network Graph</h2>
-          <svg id="networkGraph" class="m-0 p-0"></svg>
+          <svg id="networkGraph"></svg>
         </div>
       </div>
     </div>
-    <div class="col-6">
-      <div class="histogram-container" style="width: 80%;">
-        <h2>Histogram</h2>
-        <svg id="histogram" width="1000px" height="650px"></svg>
+
+    <div class="histogram-container m-4">
+      <div class="row">
+        <div class="col">
+          <h2>Histogram</h2>
+          <svg id="histogram" width="1000px" height="650px"></svg>
+        </div>
       </div>
     </div>
 
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        Dropdown
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <button class="dropdown-item" type="button">Action</button>
-        <button class="dropdown-item" type="button">Another action</button>
-        <button class="dropdown-item" type="button">Something else here</button>
-      </div>
-    </div>
-
-
-    <div class="time-container" style="width: 80%;">
+    <div class="time-container m-4">
       <div class="row">
         <div class="col">
           <h2>Time Series</h2>
+          <div class="dropdown m-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" onclick={}>Total Amount Spent</a></li>
+              <li><a class="dropdown-item" onclick={}>Frequency of Transactions</a>
+              </li>
+            </ul>
+          </div>
           <svg id="time-series-chart" width="1000px" height="500px"></svg>
         </div>
       </div>

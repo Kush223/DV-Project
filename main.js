@@ -1,5 +1,5 @@
-let margin_hm,width_hm,height_hm,svg_hm,g_hm,svg_ts
-let margin_ng,width_ng,height_ng,svg_ng,g_ng,svg_hg
+let margin_hm, width_hm, height_hm, svg_hm, g_hm, svg_ts
+let margin_ng, width_ng, height_ng, svg_ng, g_ng, svg_hg
 
 document.addEventListener('DOMContentLoaded', function () {
   Promise.all([d3.csv('data/heatmap_data.csv')]).then(function (values) {
@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
     margin_hm = { top: 50, right: 50, bottom: 50, left: 80 }
     width_hm = 800 - margin_hm.left - margin_hm.right
     height_hm = 600 - margin_hm.top - margin_hm.bottom
-    
-    svg_ts = d3.select("#time-series-chart");
-    svg_hg = d3.select("#histogram");
+
+    svg_ts = d3.select('#time-series-chart')
+    svg_hg = d3.select('#histogram')
     svg_hm = d3
       .select('#heatmap')
       .attr('width', width_hm + margin_hm.left + margin_hm.right)
@@ -287,7 +287,7 @@ function make_network (location, timestamp) {
       .attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'middle')
       .style('fill', 'black')
-      .style('font-size', '5px')
+      .style('font-size', '7px')
 
     node=node.merge(extra_nodes)
     node.style('cursor', 'pointer')
@@ -400,8 +400,8 @@ function make_network (location, timestamp) {
 //   })
 // }
 
-function make_histogram(employee_name){
-  d3.csv("data/Histogram_data.csv").then(function (data) {
+function make_histogram (employee_name) {
+  d3.csv('data/Histogram_data.csv').then(function (data) {
     data.forEach(function (d) {
       d.credit_price = parseFloat(d.credit_price).toFixed(2)
       d.loyalty_price = parseFloat(d.loyalty_price).toFixed(2)
@@ -541,308 +541,342 @@ function make_histogram(employee_name){
           .text(d)
       })
     // Add legend for the specified employee_name
-        var customlegendColors = ["red","orange"]
-        var customLegend = svg_hg.append("g")
-        .attr("transform", `translate(${Innerwidth + margin.left + 10},${margin.top + legendColors.length * 20 + 10})`);
-        
-        customLegend.selectAll(".customlegend-item")
-       .data([employee_name + " Credit Card", employee_name +" Loyalty Card"])
-       .enter()
-       .append("g")
-       .attr("class", "customlegend-item")
-       .attr("transform", function (d, i) { return `translate(0, ${i * 20})`; })
-       .each(function (d, i) {
-           d3.select(this).append("rect")
-               .attr("width", 18)
-               .attr("height", 18)
-               .attr("fill", customlegendColors[i]);
+    var customlegendColors = ['red', 'orange']
+    var customLegend = svg_hg
+      .append('g')
+      .attr(
+        'transform',
+        `translate(${Innerwidth + margin.left + 10},${
+          margin.top + legendColors.length * 20 + 10
+        })`
+      )
 
-           d3.select(this).append("text")
-               .attr("x", 25)
-               .attr("y", 9)
-               .attr("dy", ".35em")
-               .style("text-anchor", "start")
-               .text(d);
-       });
-        
-            });
+    customLegend
+      .selectAll('.customlegend-item')
+      .data([employee_name + ' Credit Card', employee_name + ' Loyalty Card'])
+      .enter()
+      .append('g')
+      .attr('class', 'customlegend-item')
+      .attr('transform', function (d, i) {
+        return `translate(0, ${i * 20})`
+      })
+      .each(function (d, i) {
+        d3.select(this)
+          .append('rect')
+          .attr('width', 18)
+          .attr('height', 18)
+          .attr('fill', customlegendColors[i])
+
+        d3.select(this)
+          .append('text')
+          .attr('x', 25)
+          .attr('y', 9)
+          .attr('dy', '.35em')
+          .style('text-anchor', 'start')
+          .text(d)
+      })
+  })
 }
 
-function TimeseriesAmount(employee_name, location, targetDate) {
-  console.log(targetDate);
-  d3.csv("data/timeseries_data.csv").then(function (data) {
-      data.forEach(function (d) {
-          d.price = parseFloat(d.price);
-          // d.timestamp = new Date(d.timestamp); // Assuming timestamp is in a date format
-      });
-      targetDate =new Date(targetDate)
-      const width = +svg_ts.style("width").replace("px", "");
-      const height = +svg_ts.style("height").replace("px", "");
-      console.log(employee_name + " " +location+" "+targetDate);
-      const margin = { top: 60, right: 20, bottom: 35, left: 120 };
+function TimeseriesAmount (employee_name, location, targetDate) {
+  console.log(targetDate)
+  d3.csv('data/timeseries_data.csv').then(function (data) {
+    data.forEach(function (d) {
+      d.price = parseFloat(d.price)
+      // d.timestamp = new Date(d.timestamp); // Assuming timestamp is in a date format
+    })
+    targetDate = new Date(targetDate)
+    const width = +svg_ts.style('width').replace('px', '')
+    const height = +svg_ts.style('height').replace('px', '')
+    console.log(employee_name + ' ' + location + ' ' + targetDate)
+    const margin = { top: 60, right: 20, bottom: 35, left: 120 }
 
-      const Innerwidth = width - margin.left - margin.right;
-      const Innerheight = height - margin.top - margin.bottom;
+    const Innerwidth = width - margin.left - margin.right
+    const Innerheight = height - margin.top - margin.bottom
 
-      svg_ts
-          .attr("width", Innerwidth)
-          .attr("height", Innerheight)
-          .append("g")
-          .attr("transform", `translate(${margin.left},${margin.top})`);
+    svg_ts
+      .attr('width', Innerwidth)
+      .attr('height', Innerheight)
+      .append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`)
 
-      
-      const minTimestamp = d3.min(data, d => new Date(d.timestamp));
-      const maxTimestamp = d3.max(data, d => new Date(d.timestamp));
-      const allDates = [minTimestamp, ...d3.timeDays(minTimestamp, maxTimestamp)];
+    const minTimestamp = d3.min(data, d => new Date(d.timestamp))
+    const maxTimestamp = d3.max(data, d => new Date(d.timestamp))
+    const allDates = [minTimestamp, ...d3.timeDays(minTimestamp, maxTimestamp)]
 
-      data = data.filter(d => d.FullName === employee_name && d.location === location);
-      const aggregatedData = new Map();
-      // Aggregate data
-      data.forEach(d => {
-        const key = `${d.FullName}-${d.timestamp}`;
-        if (!aggregatedData.has(key)) {
-            aggregatedData.set(key, {
-                employee: d.FullName,
-                location: d.location,
-                day: new Date(d.timestamp).toISOString().split('T')[0],
-                totalSpending: d.price,
-                frequency: 1
-            });
-        } else {
-            const existingData = aggregatedData.get(key);
-            existingData.totalSpending += d.price;
-            existingData.frequency += 1;
-        }
-    });
-
-      const aggregatedArray = Array.from(aggregatedData.values()).map(d => {
-          d.totalSpending = parseFloat(d.totalSpending.toFixed(2));
-          return d;
-      });
-
-      // Initialize the dataByDay object
-      var dataByDay = allDates.map(date => {
-        return {
-            day: date.toISOString().split('T')[0],
-            totalSpending: 0,
-            frequency: 0
-        };
-      });
-
-      // Update dataByDay with values from aggregatedArray
-      dataByDay.forEach(dayData => {
-        const matchingAggregatedData = aggregatedArray.find(d => d.day === dayData.day);
-        if (matchingAggregatedData) {
-            dayData.totalSpending = matchingAggregatedData.totalSpending;
-            dayData.frequency = matchingAggregatedData.frequency;
-        }
-      });
-      aggregatedArray.forEach(d => {
-        d.totalSpending = +d.totalSpending;
-      });
-      const xScale = d3.scalePoint()
-          .domain(dataByDay.map(d => d.day))
-          .range([0, Innerwidth])
-          .padding(0.5);
-
-      const yScale = d3.scaleLinear()
-          .domain([0, d3.max(dataByDay, d => d.totalSpending) + 5])
-          .range([Innerheight, 0]);
-
-      const line = d3.line()
-          .x(d => xScale(d.day))
-          .y(d => yScale(d.totalSpending));
-
-      svg_ts.append("g")
-          .attr("transform", `translate(${margin.left},${Innerheight})`)
-          .call(d3.axisBottom(xScale));
-
-      svg_ts.append("g")
-          .attr("transform", `translate(${margin.left}, 0)`)
-          .call(d3.axisLeft(yScale));
-
-      svg_ts.append("text")
-        .attr("x", Innerwidth / 2 + margin.left)  // Centered on the x-axis
-        .attr("y", Innerheight + margin.top) // Positioned below the x-axis
-        .style("text-anchor", "middle")
-        .text("Timestamp");
-
-      // Add y-axis label
-      svg_ts.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("x", -Innerheight / 2 - margin.top) // Centered on the y-axis
-        .attr("y", margin.left - 50) // Positioned to the left of the y-axis
-        .style("text-anchor", "middle")
-        .text("Total Spending");
-
-      // Draw the line
-      svg_ts.append("path")
-          .datum(dataByDay)
-          .attr("fill", "none")
-          .attr("stroke", "steelblue")
-          .attr("stroke-width", 2)
-          .attr("transform", `translate(${margin.left}, 0)`)
-          .attr("d", line);
-
-      const highlightedDateStr = targetDate.toISOString().split('T')[0];
-      console.log("Highlighted Date Format:", highlightedDateStr);
-
-      const highlightedData = dataByDay.find(d => {
-          console.log("Data Day Format:", d.day);
-          return d.day === highlightedDateStr;
-      });
-
-      if (highlightedData) {
-          svg_ts.append("circle")
-              .attr("cx", xScale(highlightedData.day))
-              .attr("cy", yScale(highlightedData.totalSpending))
-              .attr("r", 5)
-              .attr("fill", "red")
-              .attr("transform", `translate(${margin.left}, 0)`);
+    data = data.filter(
+      d => d.FullName === employee_name && d.location === location
+    )
+    const aggregatedData = new Map()
+    // Aggregate data
+    data.forEach(d => {
+      const key = `${d.FullName}-${d.timestamp}`
+      if (!aggregatedData.has(key)) {
+        aggregatedData.set(key, {
+          employee: d.FullName,
+          location: d.location,
+          day: new Date(d.timestamp).toISOString().split('T')[0],
+          totalSpending: d.price,
+          frequency: 1
+        })
+      } else {
+        const existingData = aggregatedData.get(key)
+        existingData.totalSpending += d.price
+        existingData.frequency += 1
       }
-  });
+    })
+
+    const aggregatedArray = Array.from(aggregatedData.values()).map(d => {
+      d.totalSpending = parseFloat(d.totalSpending.toFixed(2))
+      return d
+    })
+
+    // Initialize the dataByDay object
+    var dataByDay = allDates.map(date => {
+      return {
+        day: date.toISOString().split('T')[0],
+        totalSpending: 0,
+        frequency: 0
+      }
+    })
+
+    // Update dataByDay with values from aggregatedArray
+    dataByDay.forEach(dayData => {
+      const matchingAggregatedData = aggregatedArray.find(
+        d => d.day === dayData.day
+      )
+      if (matchingAggregatedData) {
+        dayData.totalSpending = matchingAggregatedData.totalSpending
+        dayData.frequency = matchingAggregatedData.frequency
+      }
+    })
+    aggregatedArray.forEach(d => {
+      d.totalSpending = +d.totalSpending
+    })
+    const xScale = d3
+      .scalePoint()
+      .domain(dataByDay.map(d => d.day))
+      .range([0, Innerwidth])
+      .padding(0.5)
+
+    const yScale = d3
+      .scaleLinear()
+      .domain([0, d3.max(dataByDay, d => d.totalSpending) + 5])
+      .range([Innerheight, 0])
+
+    const line = d3
+      .line()
+      .x(d => xScale(d.day))
+      .y(d => yScale(d.totalSpending))
+
+    svg_ts
+      .append('g')
+      .attr('transform', `translate(${margin.left},${Innerheight})`)
+      .call(d3.axisBottom(xScale))
+
+    svg_ts
+      .append('g')
+      .attr('transform', `translate(${margin.left}, 0)`)
+      .call(d3.axisLeft(yScale))
+
+    svg_ts
+      .append('text')
+      .attr('x', Innerwidth / 2 + margin.left) // Centered on the x-axis
+      .attr('y', Innerheight + margin.top) // Positioned below the x-axis
+      .style('text-anchor', 'middle')
+      .text('Timestamp')
+
+    // Add y-axis label
+    svg_ts
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -Innerheight / 2 - margin.top) // Centered on the y-axis
+      .attr('y', margin.left - 50) // Positioned to the left of the y-axis
+      .style('text-anchor', 'middle')
+      .text('Total Spending')
+
+    // Draw the line
+    svg_ts
+      .append('path')
+      .datum(dataByDay)
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 2)
+      .attr('transform', `translate(${margin.left}, 0)`)
+      .attr('d', line)
+
+    const highlightedDateStr = targetDate.toISOString().split('T')[0]
+    console.log('Highlighted Date Format:', highlightedDateStr)
+
+    const highlightedData = dataByDay.find(d => {
+      console.log('Data Day Format:', d.day)
+      return d.day === highlightedDateStr
+    })
+
+    if (highlightedData) {
+      svg_ts
+        .append('circle')
+        .attr('cx', xScale(highlightedData.day))
+        .attr('cy', yScale(highlightedData.totalSpending))
+        .attr('r', 5)
+        .attr('fill', 'red')
+        .attr('transform', `translate(${margin.left}, 0)`)
+    }
+  })
 }
 
+function TimeseriesFrequency (employee_name, location, day) {
+  d3.csv('data/timeseries_data.csv').then(function (data) {
+    day = new Date(day)
+    data.forEach(function (d) {
+      d.price = parseFloat(d.price)
+    })
+    const width = +svg_ts.style('width').replace('px', '')
+    const height = +svg_ts.style('height').replace('px', '')
 
-function TimeseriesFrequency(employee_name, location, day) {
-  d3.csv("data/timeseries_data.csv").then(function (data) {
-      day=new Date(day)
-      data.forEach(function (d) {
-          d.price = parseFloat(d.price);
-      });
-      const width = +svg_ts.style("width").replace("px", "");
-      const height = +svg_ts.style("height").replace("px", "");
+    const margin = { top: 60, right: 20, bottom: 35, left: 120 }
 
-      const margin = { top: 60, right: 20, bottom: 35, left: 120 };
+    const Innerwidth = width - margin.left - margin.right
+    const Innerheight = height - margin.top - margin.bottom
 
-      const Innerwidth = width - margin.left - margin.right;
-      const Innerheight = height - margin.top - margin.bottom;
+    svg_ts
+      .attr('width', Innerwidth)
+      .attr('height', Innerheight)
+      .append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`)
 
-      svg_ts
-          .attr("width", Innerwidth)
-          .attr("height", Innerheight)
-          .append("g")
-          .attr("transform", `translate(${margin.left},${margin.top})`);
+    const minTimestamp = d3.min(data, d => new Date(d.timestamp))
+    const maxTimestamp = d3.max(data, d => new Date(d.timestamp))
+    // console.log(minTimestamp);
+    // console.log(maxTimestamp);
 
-      const minTimestamp = d3.min(data, d => new Date(d.timestamp));
-      const maxTimestamp = d3.max(data, d => new Date(d.timestamp));
-      // console.log(minTimestamp);
-      // console.log(maxTimestamp);
+    const allDates = [minTimestamp, ...d3.timeDays(minTimestamp, maxTimestamp)]
+    // console.log(allDates)
 
-      const allDates = [minTimestamp, ...d3.timeDays(minTimestamp, maxTimestamp)];
-      // console.log(allDates)
+    data = data.filter(
+      d => d.FullName === employee_name && d.location === location
+    )
+    const aggregatedData = new Map()
 
-      data = data.filter(d => d.FullName === employee_name && d.location === location);
-      const aggregatedData = new Map();
-
-      // Aggregate data
-      data.forEach(d => {
-          const key = `${d.FullName}-${d.timestamp}`;
-          if (!aggregatedData.has(key)) {
-              aggregatedData.set(key, {
-                  employee: d.FullName,
-                  location: d.location,
-                  day: new Date(d.timestamp).toISOString().split('T')[0],
-                  totalSpending: d.price,
-                  frequency: 1
-              });
-          } else {
-              const existingData = aggregatedData.get(key);
-              existingData.totalSpending += d.price;
-              existingData.frequency += 1;
-          }
-      });
-
-      const aggregatedArray = Array.from(aggregatedData.values()).map(d => {
-          d.totalSpending = parseFloat(d.totalSpending.toFixed(2));
-          return d;
-      });
-
-      // Initialize the dataByDay object
-      var dataByDay = allDates.map(date => {
-          return {
-              day: date.toISOString().split('T')[0],
-              totalSpending: 0,
-              frequency: 0
-          };
-      });
-
-      // Update dataByDay with values from aggregatedArray
-      dataByDay.forEach(dayData => {
-          const matchingAggregatedData = aggregatedArray.find(d => d.day === dayData.day);
-          if (matchingAggregatedData) {
-              dayData.totalSpending = matchingAggregatedData.totalSpending;
-              dayData.frequency = matchingAggregatedData.frequency;
-          }
-      });
-
-      aggregatedArray.forEach(d => {
-          d.totalSpending = +d.totalSpending;
-      });
-
-      // Set the domains of the scales
-      const xScale = d3.scalePoint()
-          .domain(dataByDay.map(d => d.day))
-          .range([0, Innerwidth])
-          .padding(0.5);
-
-      const yScale = d3.scaleLinear()
-          .domain([0, d3.max(dataByDay, d => d.frequency) + 2])
-          .range([Innerheight, 0]);
-
-      // Set up the line generator
-      const line = d3.line()
-          .x(d => xScale(d.day))
-          .y(d => yScale(d.frequency));
-
-      // Draw the x-axis
-      svg_ts.append("g")
-          .attr("transform", `translate(${margin.left},${Innerheight})`)
-          .call(d3.axisBottom(xScale));
-
-      // Draw the y-axis
-      svg_ts.append("g")
-          .attr("transform", `translate(${margin.left}, 0)`)
-          .call(d3.axisLeft(yScale));
-
-      svg_ts.append("text")
-          .attr("x", Innerwidth / 2 + margin.left)  // Centered on the x-axis
-          .attr("y", Innerheight + margin.top) // Positioned below the x-axis
-          .style("text-anchor", "middle")
-          .text("Timestamp");
-
-      // Add y-axis label
-      svg_ts.append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("x", -Innerheight / 2 - margin.top) // Centered on the y-axis
-          .attr("y", margin.left - 50) // Positioned to the left of the y-axis
-          .style("text-anchor", "middle")
-          .text("Frequency");
-
-      // Draw the line
-      svg_ts.append("path")
-          .datum(dataByDay)
-          .attr("fill", "none")
-          .attr("stroke", "steelblue")
-          .attr("stroke-width", 2)
-          .attr("transform", `translate(${margin.left}, 0)`)
-          .attr("d", line);
-
-      const highlightedDateStr = day.toISOString().split('T')[0];
-      // console.log("Highlighted Date Format:", highlightedDateStr);
-
-      const highlightedData = dataByDay.find(d => {
-          console.log("Data Day Format:", d.day);
-          return d.day === highlightedDateStr;
-      });
-
-      if (highlightedData) {
-          svg_ts.append("circle")
-              .attr("cx", xScale(highlightedData.day))
-              .attr("cy", yScale(highlightedData.frequency))
-              .attr("r", 5)
-              .attr("fill", "red")
-              .attr("transform", `translate(${margin.left}, 0)`);
+    // Aggregate data
+    data.forEach(d => {
+      const key = `${d.FullName}-${d.timestamp}`
+      if (!aggregatedData.has(key)) {
+        aggregatedData.set(key, {
+          employee: d.FullName,
+          location: d.location,
+          day: new Date(d.timestamp).toISOString().split('T')[0],
+          totalSpending: d.price,
+          frequency: 1
+        })
+      } else {
+        const existingData = aggregatedData.get(key)
+        existingData.totalSpending += d.price
+        existingData.frequency += 1
       }
+    })
+
+    const aggregatedArray = Array.from(aggregatedData.values()).map(d => {
+      d.totalSpending = parseFloat(d.totalSpending.toFixed(2))
+      return d
+    })
+
+    // Initialize the dataByDay object
+    var dataByDay = allDates.map(date => {
+      return {
+        day: date.toISOString().split('T')[0],
+        totalSpending: 0,
+        frequency: 0
+      }
+    })
+
+    // Update dataByDay with values from aggregatedArray
+    dataByDay.forEach(dayData => {
+      const matchingAggregatedData = aggregatedArray.find(
+        d => d.day === dayData.day
+      )
+      if (matchingAggregatedData) {
+        dayData.totalSpending = matchingAggregatedData.totalSpending
+        dayData.frequency = matchingAggregatedData.frequency
+      }
+    })
+
+    aggregatedArray.forEach(d => {
+      d.totalSpending = +d.totalSpending
+    })
+
+    // Set the domains of the scales
+    const xScale = d3
+      .scalePoint()
+      .domain(dataByDay.map(d => d.day))
+      .range([0, Innerwidth])
+      .padding(0.5)
+
+    const yScale = d3
+      .scaleLinear()
+      .domain([0, d3.max(dataByDay, d => d.frequency) + 2])
+      .range([Innerheight, 0])
+
+    // Set up the line generator
+    const line = d3
+      .line()
+      .x(d => xScale(d.day))
+      .y(d => yScale(d.frequency))
+
+    // Draw the x-axis
+    svg_ts
+      .append('g')
+      .attr('transform', `translate(${margin.left},${Innerheight})`)
+      .call(d3.axisBottom(xScale))
+
+    // Draw the y-axis
+    svg_ts
+      .append('g')
+      .attr('transform', `translate(${margin.left}, 0)`)
+      .call(d3.axisLeft(yScale))
+
+    svg_ts
+      .append('text')
+      .attr('x', Innerwidth / 2 + margin.left) // Centered on the x-axis
+      .attr('y', Innerheight + margin.top) // Positioned below the x-axis
+      .style('text-anchor', 'middle')
+      .text('Timestamp')
+
+    // Add y-axis label
+    svg_ts
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -Innerheight / 2 - margin.top) // Centered on the y-axis
+      .attr('y', margin.left - 50) // Positioned to the left of the y-axis
+      .style('text-anchor', 'middle')
+      .text('Frequency')
+
+    // Draw the line
+    svg_ts
+      .append('path')
+      .datum(dataByDay)
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 2)
+      .attr('transform', `translate(${margin.left}, 0)`)
+      .attr('d', line)
+
+    const highlightedDateStr = day.toISOString().split('T')[0]
+    // console.log("Highlighted Date Format:", highlightedDateStr);
+
+    const highlightedData = dataByDay.find(d => {
+      console.log('Data Day Format:', d.day)
+      return d.day === highlightedDateStr
+    })
+
+    if (highlightedData) {
+      svg_ts
+        .append('circle')
+        .attr('cx', xScale(highlightedData.day))
+        .attr('cy', yScale(highlightedData.frequency))
+        .attr('r', 5)
+        .attr('fill', 'red')
+        .attr('transform', `translate(${margin.left}, 0)`)
+    }
   })
 }
