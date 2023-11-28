@@ -1,6 +1,6 @@
 let margin_hm, width_hm, height_hm, svg_hm, g_hm, svg_ts
-let margin_ng, width_ng, height_ng, svg_ng, g_ng, svg_hg
-
+let margin_ng, width_ng, height_ng, svg_ng, g_ng, svg_hg, bar_svg
+let department_data, intermediate_emp_data, emp_data
 document.addEventListener('DOMContentLoaded', function () {
   Promise.all([d3.csv('data/heatmap_data.csv')]).then(function (values) {
     heatmap_data = values[0]
@@ -8,7 +8,17 @@ document.addEventListener('DOMContentLoaded', function () {
     margin_hm = { top: 50, right: 50, bottom: 50, left: 80 }
     width_hm = 800 - margin_hm.left - margin_hm.right
     height_hm = 600 - margin_hm.top - margin_hm.bottom
-
+    width_bp=860
+    height_bp=760
+    bar_svg = d3
+    .select("#barpie")
+    .attr("width", width_bp)
+    .attr("height", height_hm + 100)
+    .append("g")
+    .attr(
+      "transform",
+      `translate(${width_bp / 2 }, ${height_bp / 2 + 100})`
+    );
     svg_ts = d3.select('#time-series-chart')
     svg_hg = d3.select('#histogram')
     svg_hm = d3
@@ -111,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Clicked cell:', d)
         // d3.select('#networkGraph').remove()
         make_network(d.location, d.timestamp)
+        make_piebar(d.timestamp)
       })
 
     const xAxis = d3
@@ -183,7 +194,268 @@ document.addEventListener('DOMContentLoaded', function () {
     yAxisGroup.selectAll('text').style('font-size', '6px')
   })
 })
+function make_piebar(day){
+  Promise.all([d3.csv("data/final_emp_data.csv")]).then(function (values) {
+    data = values[0];
 
+    intermediate_emp_data = data.reduce((result, currentItem) => {
+      const {
+        location,
+        amount,
+        last4ccnum,
+        name,
+        date,
+        CarID,
+        department,
+        CurrentEmploymentTitle,
+      } = currentItem;
+
+      const amount_ = parseInt(amount);
+      const existingItem = result.find(
+        (item) => item.name === name && item.date === date
+      );
+
+      if (existingItem) {
+        existingItem.amount_ = Number(existingItem.amount_) + amount_;
+      } else {
+        result.push({
+          name,
+          department,
+          date,
+          amount_,
+          CurrentEmploymentTitle,
+          last4ccnum,
+          CarID,
+        });
+      }
+
+      return result;
+    }, []);
+
+    intermediate_emp_data.sort((a, b) => {
+      if (a.department < b.department) return -1;
+      if (a.department > b.department) return 1;
+      return 0;
+    });
+
+    console.log(intermediate_emp_data);
+    console.log(day);
+    data_wrangling(day);
+  });
+}
+function data_wrangling(date) {
+  emp_data = intermediate_emp_data.filter((e) => e.date === date);
+  department_data = {};
+
+  emp_data.forEach((emp) => {
+    const department = emp.department;
+
+    if (department_data[department]) {
+      department_data[department]++;
+    } else {
+      department_data[department] = 1;
+    }
+  });
+
+  console.log(department_data);
+  console.log(emp_data);
+
+  draw_barchart();
+}
+
+function draw_barchart() {
+  var innerRadius = 220;
+  var outerRadius = Math.min(width_bp, height_bp) / 2;
+  var x = d3
+    .scaleBand()
+    .range([0, 2 * Math.PI])
+    .align(0)
+    .domain(
+      emp_data.map(function (d) {
+        return d.name;
+      })
+    );
+
+  var y = d3
+    .scaleRadial()
+    .range([innerRadius, outerRadius])
+    .domain([
+      1,
+      Math.max(
+        ...emp_data.map(function (d) {
+          return d.amount_;
+        })
+      ),
+    ]);
+
+  var color = d3
+    .scaleOrdinal()
+    .domain(
+      intermediate_emp_data.map(function (d) {
+        return d.department;
+      })
+    )
+    .range(d3.schemeSet3);
+
+  paths = bar_svg
+    .append("g")
+    .selectAll("bars")
+    .data(emp_data)
+    .join("path")
+    .attr("class", "bars")
+    .attr(
+      "d",
+      d3
+        .arc()
+        .innerRadius(innerRadius)
+        .outerRadius((d) => y(d["amount_"]))
+        .startAngle((d) => x(d.name))
+        .endAngle((d) => x(d.name) + x.bandwidth())
+        .padAngle(0.01)
+        .padRadius(innerRadius)
+    )
+    .attr("fill", function (d, i) {
+      return color(d.department);
+    })
+    .attr("stroke", "black")
+    .style("stroke-width", "0.75px");
+
+  var pie = d3
+    .pie()
+    .value((d) => d[1])
+    .sort(function (a, b) {
+      return b[1] > a[1];
+    });
+  var data_ready = pie(Object.entries(department_data));
+
+  bar_svg
+    .append("g")
+    .selectAll("pie")
+    .data(data_ready)
+    .join("path")
+    .attr("class", "pie")
+    .attr(
+      "d",
+      d3
+        .arc()
+        .innerRadius(0)
+        .outerRadius(innerRadius)
+        .padAngle(0.005)
+        .padRadius(innerRadius)
+    )
+    .attr("fill", (d) => color(d.data[0]))
+    .attr("stroke", "black")
+    .style("stroke-width", "0.5px");
+
+  //pie labels
+  bar_svg
+    .selectAll("pie")
+    .data(data_ready)
+    .enter()
+    .append("text")
+    .text(function (d) {
+      return d.data[0] + "";
+    })
+    .attr("transform", function (d) {
+      return (
+        "translate(" +
+        d3
+          .arc()
+          .innerRadius(0)
+          .outerRadius(innerRadius + 100)
+          .padAngle(0.01)
+          .padRadius(innerRadius)
+          .centroid(d) +
+        ")"
+      );
+    })
+    .style("text-anchor", "middle")
+    .style("font-size", 15);
+
+  //bar labels
+  bar_svg
+    .append("g")
+    .selectAll("g")
+    .data(emp_data)
+    .join("g")
+    .attr("text-anchor", function (d) {
+      return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI
+        ? "end"
+        : "start";
+    })
+    .attr("transform", function (d) {
+      return (
+        "rotate(" +
+        (((x(d.name) + x.bandwidth() / 2) * 180) / Math.PI - 90) +
+        ")" +
+        "translate(" +
+        (y(d["amount_"]) + 10) +
+        ",0)"
+      );
+    })
+    .append("text")
+    .text(function (d) {
+      return d.name + " ";
+    })
+    .attr("transform", function (d) {
+      return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI
+        ? "rotate(180)"
+        : "rotate(0)";
+    })
+    .style("font-size", 12)
+    .attr("alignment-baseline", "middle");
+
+  //tooltip
+  var Tooltip = d3
+    .selectAll("#inno")
+    .style("left", "0px")
+    .style("top", "0px")
+    .append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("z-index", "100")
+    .style("border", "solid")
+    .style("position", "fixed")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px");
+
+  //bar tooltip
+  bar_svg
+    .selectAll(".bars")
+    .on("mouseover", function (d, i) {
+      // console.log("mouseover")
+      Tooltip.html(i.name + "<br>" + "Amount: $" + i.amount_);
+      Tooltip.style("opacity", 1);
+    })
+    .on("mousemove", function (d, i) {
+      // console.log("mousemove")
+      Tooltip.html(i.name + "<br>" + "Amount: $" + i.amount_)
+        .style("left", event.screenX + "px")
+        .style("top", event.screenY - 75 + "px");
+    })
+    .on("mouseout", function (d, i) {
+      Tooltip.style("opacity", 0).style("left", "0px").style("top", "0px");
+    });
+
+  bar_svg
+    .selectAll(".pie")
+    .on("mouseover", function (d, i) {
+      Tooltip.html(i.data[0] + ": " + i.data[1]);
+      Tooltip.style("opacity", 1);
+    })
+    .on("mousemove", function (d, i) {
+      Tooltip.html(i.data[0] + ": " + i.data[1]);
+      Tooltip.style("opacity", 1)
+        .style("left", event.screenX + "px")
+        .style("top", event.screenY - 75 + "px");
+    })
+    .on("mouseout", function (d, i) {
+      Tooltip.style("opacity", 0).style("left", "0px").style("top", "0px");
+    });
+}
 function make_network (location, timestamp) {
   Promise.all([
     d3.csv('data/network_graph.csv'),
