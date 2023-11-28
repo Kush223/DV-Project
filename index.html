@@ -10,39 +10,6 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="./styles.css">
 </head>
-<style>
-  #heat-container {
-    /* background-color: white;
-    border: 1px solid #d3d3d3;
-    border-radius: 3px; */
-  }
-
-  #networkGraph {
-    width: 1000px;
-    height: 500px;
-    /* background-color: white;
-    border: 1px solid #d3d3d3;
-    border-radius: 3px; */
-  }
-
-  #histogram {
-    width: 1000px;
-    height: 650px;
-    /* background-color: white;
-    border: 1px solid #d3d3d3;
-    border-radius: 3px; */
-    display: block;
-  }
-
-  #time-series-chart {
-    width: 1000px;
-    height: 500px;
-    /* background-color: white;
-    border: 1px solid #d3d3d3;
-    border-radius: 3px; */
-    display: block;
-  }
-</style>
 
 <body>
 
@@ -52,7 +19,7 @@
     <div class="heat-container m-4">
       <div class="row">
         <div class="col">
-          <h2>Heat Map</h2>
+          <h2 class="mb-4">Heat Map</h2>
           <svg id="heatmap"></svg>
         </div>
       </div>
@@ -70,7 +37,7 @@
     <div class="network-container m-4">
       <div class="row">
         <div class="col">
-          <h2>Network Graph</h2>
+          <h2 class="mb-4">Network Graph</h2>
           <svg id="networkGraph"></svg>
         </div>
       </div>
@@ -79,8 +46,8 @@
     <div class="histogram-container m-4">
       <div class="row">
         <div class="col">
-          <h2>Histogram</h2>
-          <svg id="histogram" width="1000px" height="650px"></svg>
+          <h2 class="mb-4">Histogram</h2>
+          <svg id="histogram"></svg>
         </div>
       </div>
     </div>
@@ -92,18 +59,36 @@
           <div class="dropdown m-2">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
               aria-expanded="false">
-              Dropdown button
+              Display By
             </button>
+<<<<<<< Updated upstream
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" onclick=amount_ts()>Total Amount Spent</a></li>
               <li><a class="dropdown-item" onclick=freq_ts()>Frequency of Transactions</a>
               </li>
+=======
+            <ul class="dropdown-menu w-auto">
+              <li><a class="dropdown-item">Amount</a></li>
+              <li><a class="dropdown-item">Frequency</a></li>
+>>>>>>> Stashed changes
             </ul>
           </div>
-          <svg id="time-series-chart" width="1000px" height="500px"></svg>
+          <svg id="timeseries"></svg>
         </div>
       </div>
     </div>
+<<<<<<< Updated upstream
+=======
+
+    <div class="innovative-container m-4">
+      <div class="row">
+        <div class="col">
+          <h2 class="mb-4">Bar Pie Chart</h2>
+          <svg id="barpie"></svg>
+        </div>
+      </div>
+    </div>
+>>>>>>> Stashed changes
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

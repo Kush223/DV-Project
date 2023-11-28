@@ -35,3 +35,34 @@ h1 {
 .dropdown-menu li a{
   cursor: pointer;
 }
+
+#networkGraph {
+  width: 1000px;
+  height: 800px;
+}
+
+#histogram {
+  width: 1000px;
+  height: 650px;
+  display: block;
+}
+
+#timeseries {
+  width: 1000px;
+  height: 600px;
+  display: block;
+}
+
+#barpie {
+  width: 1000px;
+  height: 870px;
+  display: block;
+}
+
+.network-container{
+  visibility: hidden;
+}
+
+.innovative-container{
+  visibility: hidden;
+}

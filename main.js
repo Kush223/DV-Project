@@ -1,7 +1,16 @@
 let margin_hm, width_hm, height_hm, svg_hm, g_hm, svg_ts
 let margin_ng, width_ng, height_ng, svg_ng, g_ng, svg_hg, bar_svg
 let department_data, intermediate_emp_data, emp_data
-let name_ts,timestamp_ts,location_ts,Innerwidth,Innerheight,margin_ts,width_ts,height_ts
+let name_ts,
+  timestamp_ts,
+  location_ts,
+  Innerwidth,
+  Innerheight,
+  margin_ts,
+  width_ts,
+  height_ts
+let container_network = document.querySelector('.network-container')
+let container_inno = document.querySelector('.innovative-container')
 document.addEventListener('DOMContentLoaded', function () {
   Promise.all([d3.csv('data/heatmap_data.csv')]).then(function (values) {
     heatmap_data = values[0]
@@ -9,17 +18,14 @@ document.addEventListener('DOMContentLoaded', function () {
     margin_hm = { top: 50, right: 50, bottom: 50, left: 80 }
     width_hm = 800 - margin_hm.left - margin_hm.right
     height_hm = 600 - margin_hm.top - margin_hm.bottom
-    width_bp=860
-    height_bp=760
+    width_bp = 860
+    height_bp = 760
     bar_svg = d3
-    .select("#barpie")
-    .attr("width", width_bp)
-    .attr("height", height_hm + 100)
-    .append("g")
-    .attr(
-      "transform",
-      `translate(${width_bp / 2 }, ${height_bp / 2 + 100})`
-    );
+      .select('#barpie')
+      .attr('width', width_bp)
+      .attr('height', height_hm + 100)
+      .append('g')
+      .attr('transform', `translate(${width_bp / 2}, ${height_bp / 2 + 100})`)
     svg_ts = d3.select('#time-series-chart')
     width_ts = +svg_ts.style('width').replace('px', '')
     height_ts = +svg_ts.style('height').replace('px', '')
@@ -35,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
       .append('g')
       .attr('transform', `translate(${margin_ts.left},${margin_ts.top})`)
 
-    
     svg_hg = d3.select('#histogram')
     svg_hm = d3
       .select('#heatmap')
@@ -135,7 +140,8 @@ document.addEventListener('DOMContentLoaded', function () {
       // })
       .on('click', function (event, d) {
         console.log('Clicked cell:', d)
-        // d3.select('#networkGraph').remove()
+        container_network.style.visibility = 'visible'
+        container_inno.style.visibility = 'visible'
         make_network(d.location, d.timestamp)
         make_piebar(d.timestamp)
       })
@@ -210,9 +216,9 @@ document.addEventListener('DOMContentLoaded', function () {
     yAxisGroup.selectAll('text').style('font-size', '6px')
   })
 })
-function make_piebar(day){
-  Promise.all([d3.csv("data/final_emp_data.csv")]).then(function (values) {
-    data = values[0];
+function make_piebar (day) {
+  Promise.all([d3.csv('data/final_emp_data.csv')]).then(function (values) {
+    data = values[0]
 
     intermediate_emp_data = data.reduce((result, currentItem) => {
       const {
@@ -223,16 +229,16 @@ function make_piebar(day){
         date,
         CarID,
         department,
-        CurrentEmploymentTitle,
-      } = currentItem;
+        CurrentEmploymentTitle
+      } = currentItem
 
-      const amount_ = parseInt(amount);
+      const amount_ = parseInt(amount)
       const existingItem = result.find(
-        (item) => item.name === name && item.date === date
-      );
+        item => item.name === name && item.date === date
+      )
 
       if (existingItem) {
-        existingItem.amount_ = Number(existingItem.amount_) + amount_;
+        existingItem.amount_ = Number(existingItem.amount_) + amount_
       } else {
         result.push({
           name,
@@ -241,56 +247,56 @@ function make_piebar(day){
           amount_,
           CurrentEmploymentTitle,
           last4ccnum,
-          CarID,
-        });
+          CarID
+        })
       }
 
-      return result;
-    }, []);
+      return result
+    }, [])
 
     intermediate_emp_data.sort((a, b) => {
-      if (a.department < b.department) return -1;
-      if (a.department > b.department) return 1;
-      return 0;
-    });
+      if (a.department < b.department) return -1
+      if (a.department > b.department) return 1
+      return 0
+    })
 
-    console.log(intermediate_emp_data);
-    console.log(day);
-    data_wrangling(day);
-  });
+    console.log(intermediate_emp_data)
+    console.log(day)
+    data_wrangling(day)
+  })
 }
-function data_wrangling(date) {
-  emp_data = intermediate_emp_data.filter((e) => e.date === date);
-  department_data = {};
+function data_wrangling (date) {
+  emp_data = intermediate_emp_data.filter(e => e.date === date)
+  department_data = {}
 
-  emp_data.forEach((emp) => {
-    const department = emp.department;
+  emp_data.forEach(emp => {
+    const department = emp.department
 
     if (department_data[department]) {
-      department_data[department]++;
+      department_data[department]++
     } else {
-      department_data[department] = 1;
+      department_data[department] = 1
     }
-  });
+  })
 
-  console.log(department_data);
-  console.log(emp_data);
+  console.log(department_data)
+  console.log(emp_data)
 
-  draw_barchart();
+  draw_barchart()
 }
 
-function draw_barchart() {
-  var innerRadius = 220;
-  var outerRadius = Math.min(width_bp, height_bp) / 2;
+function draw_barchart () {
+  var innerRadius = 220
+  var outerRadius = Math.min(width_bp, height_bp) / 2
   var x = d3
     .scaleBand()
     .range([0, 2 * Math.PI])
     .align(0)
     .domain(
       emp_data.map(function (d) {
-        return d.name;
+        return d.name
       })
-    );
+    )
 
   var y = d3
     .scaleRadial()
@@ -299,59 +305,59 @@ function draw_barchart() {
       1,
       Math.max(
         ...emp_data.map(function (d) {
-          return d.amount_;
+          return d.amount_
         })
-      ),
-    ]);
+      )
+    ])
 
   var color = d3
     .scaleOrdinal()
     .domain(
       intermediate_emp_data.map(function (d) {
-        return d.department;
+        return d.department
       })
     )
-    .range(d3.schemeSet3);
+    .range(d3.schemeSet3)
 
   var paths = bar_svg
-    .append("g")
-    .selectAll(".bars")
+    .append('g')
+    .selectAll('.bars')
     .data(emp_data)
-    .join("path")
-    .attr("class", "bars")
+    .join('path')
+    .attr('class', 'bars')
     .attr(
-      "d",
+      'd',
       d3
         .arc()
         .innerRadius(innerRadius)
-        .outerRadius((d) => y(d["amount_"]))
-        .startAngle((d) => x(d.name))
-        .endAngle((d) => x(d.name) + x.bandwidth())
+        .outerRadius(d => y(d['amount_']))
+        .startAngle(d => x(d.name))
+        .endAngle(d => x(d.name) + x.bandwidth())
         .padAngle(0.01)
         .padRadius(innerRadius)
     )
-    .attr("fill", function (d, i) {
-      return color(d.department);
+    .attr('fill', function (d, i) {
+      return color(d.department)
     })
-    .attr("stroke", "black")
-    .style("stroke-width", "0.75px");
+    .attr('stroke', 'black')
+    .style('stroke-width', '0.75px')
 
   var pie = d3
     .pie()
-    .value((d) => d[1])
+    .value(d => d[1])
     .sort(function (a, b) {
-      return b[1] > a[1];
-    });
-  var data_ready = pie(Object.entries(department_data));
+      return b[1] > a[1]
+    })
+  var data_ready = pie(Object.entries(department_data))
 
   bar_svg
-    .append("g")
-    .selectAll("pie")
+    .append('g')
+    .selectAll('pie')
     .data(data_ready)
-    .join("path")
-    .attr("class", "pie")
+    .join('path')
+    .attr('class', 'pie')
     .attr(
-      "d",
+      'd',
       d3
         .arc()
         .innerRadius(0)
@@ -359,22 +365,22 @@ function draw_barchart() {
         .padAngle(0.005)
         .padRadius(innerRadius)
     )
-    .attr("fill", (d) => color(d.data[0]))
-    .attr("stroke", "black")
-    .style("stroke-width", "0.5px");
+    .attr('fill', d => color(d.data[0]))
+    .attr('stroke', 'black')
+    .style('stroke-width', '0.5px')
 
   //pie labels
   bar_svg
-    .selectAll("pie")
+    .selectAll('pie')
     .data(data_ready)
     .enter()
-    .append("text")
+    .append('text')
     .text(function (d) {
-      return d.data[0] + "";
+      return d.data[0] + ''
     })
-    .attr("transform", function (d) {
+    .attr('transform', function (d) {
       return (
-        "translate(" +
+        'translate(' +
         d3
           .arc()
           .innerRadius(0)
@@ -382,102 +388,102 @@ function draw_barchart() {
           .padAngle(0.01)
           .padRadius(innerRadius)
           .centroid(d) +
-        ")"
-      );
+        ')'
+      )
     })
-    .style("text-anchor", "middle")
-    .style("font-size", 15);
+    .style('text-anchor', 'middle')
+    .style('font-size', 15)
 
   //bar labels
   bar_svg
-    .append("g")
-    .selectAll("g")
+    .append('g')
+    .selectAll('g')
     .data(emp_data)
-    .join("g")
-    .attr("text-anchor", function (d) {
+    .join('g')
+    .attr('text-anchor', function (d) {
       return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI
-        ? "end"
-        : "start";
+        ? 'end'
+        : 'start'
     })
-    .attr("transform", function (d) {
+    .attr('transform', function (d) {
       return (
-        "rotate(" +
+        'rotate(' +
         (((x(d.name) + x.bandwidth() / 2) * 180) / Math.PI - 90) +
-        ")" +
-        "translate(" +
-        (y(d["amount_"]) + 10) +
-        ",0)"
-      );
+        ')' +
+        'translate(' +
+        (y(d['amount_']) + 10) +
+        ',0)'
+      )
     })
-    .append("text")
+    .append('text')
     .text(function (d) {
-      return d.name + " ";
+      return d.name + ' '
     })
-    .attr("transform", function (d) {
+    .attr('transform', function (d) {
       return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI
-        ? "rotate(180)"
-        : "rotate(0)";
+        ? 'rotate(180)'
+        : 'rotate(0)'
     })
-    .style("font-size", 12)
-    .attr("alignment-baseline", "middle");
+    .style('font-size', 12)
+    .attr('alignment-baseline', 'middle')
 
   //tooltip
   var Tooltip = d3
-    .selectAll(".innovative-container")
-    .style("left", "0px")
-    .style("top", "0px")
-    .append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0)
-    .attr("class", "tooltip")
-    .style("background-color", "white")
-    .style("z-index", "100")
-    .style("border", "solid")
-    .style("position", "fixed")
-    .style("border-width", "2px")
-    .style("border-radius", "5px")
-    .style("padding", "5px");
+    .selectAll('.innovative-container')
+    .style('left', '0px')
+    .style('top', '0px')
+    .append('div')
+    .attr('class', 'tooltip')
+    .style('opacity', 0)
+    .attr('class', 'tooltip')
+    .style('background-color', 'white')
+    .style('z-index', '100')
+    .style('border', 'solid')
+    .style('position', 'fixed')
+    .style('border-width', '2px')
+    .style('border-radius', '5px')
+    .style('padding', '5px')
 
   //bar tooltip
   bar_svg
-    .selectAll(".bars")
-    .on("mouseover", function (d, i) {
+    .selectAll('.bars')
+    .on('mouseover', function (d, i) {
       // console.log("mouseover")
-      Tooltip.html(i.name + "<br>" + "Amount: $" + i.amount_);
-      Tooltip.style("opacity", 1);
+      Tooltip.html(i.name + '<br>' + 'Amount: $' + i.amount_)
+      Tooltip.style('opacity', 1)
     })
-    .on("mousemove", function (d, i) {
+    .on('mousemove', function (d, i) {
       // console.log("mousemove")
-      Tooltip.html(i.name + "<br>" + "Amount: $" + i.amount_)
-        .style("left", event.screenX + "px")
-        .style("top", event.screenY - 75 + "px");
+      Tooltip.html(i.name + '<br>' + 'Amount: $' + i.amount_)
+        .style('left', event.screenX + 'px')
+        .style('top', event.screenY - 75 + 'px')
     })
-    .on("mouseout", function (d, i) {
-      Tooltip.style("opacity", 0).style("left", "0px").style("top", "0px");
-    });
+    .on('mouseout', function (d, i) {
+      Tooltip.style('opacity', 0).style('left', '0px').style('top', '0px')
+    })
 
   bar_svg
-    .selectAll(".pie")
-    .on("mouseover", function (d, i) {
-      Tooltip.html(i.data[0] + ": " + i.data[1]);
-      Tooltip.style("opacity", 1);
+    .selectAll('.pie')
+    .on('mouseover', function (d, i) {
+      Tooltip.html(i.data[0] + ': ' + i.data[1])
+      Tooltip.style('opacity', 1)
     })
-    .on("mousemove", function (d, i) {
-      Tooltip.html(i.data[0] + ": " + i.data[1]);
-      Tooltip.style("opacity", 1)
-        .style("left", event.screenX + "px")
-        .style("top", event.screenY - 75 + "px");
+    .on('mousemove', function (d, i) {
+      Tooltip.html(i.data[0] + ': ' + i.data[1])
+      Tooltip.style('opacity', 1)
+        .style('left', event.screenX + 'px')
+        .style('top', event.screenY - 75 + 'px')
     })
-    .on("mouseout", function (d, i) {
-      Tooltip.style("opacity", 0).style("left", "0px").style("top", "0px");
-    });
+    .on('mouseout', function (d, i) {
+      Tooltip.style('opacity', 0).style('left', '0px').style('top', '0px')
+    })
 }
 
-function amount_ts(){
-  TimeseriesAmount(name_ts,location_ts,timestamp_ts)
+function amount_ts () {
+  TimeseriesAmount(name_ts, location_ts, timestamp_ts)
 }
-function freq_ts(){
-  TimeseriesFrequency(name_ts,location_ts,timestamp_ts)
+function freq_ts () {
+  TimeseriesFrequency(name_ts, location_ts, timestamp_ts)
 }
 
 function make_network (location, timestamp) {
@@ -548,30 +554,30 @@ function make_network (location, timestamp) {
     console.log('Person data final')
     console.log(person)
 
-    var link = g_ng.selectAll('.ln').data(ds);
-    link.exit().remove();
-    link = link.enter().append('line').attr('class', 'ln').merge(link);
-    link.style('stroke', '#aaa');
+    var link = g_ng.selectAll('.ln').data(ds)
+    link.exit().remove()
+    link = link.enter().append('line').attr('class', 'ln').merge(link)
+    link.style('stroke', '#aaa')
 
-    var weightText = g_ng.selectAll('.txt').data(ds);
-    weightText.exit().remove();
-    weightText = weightText.enter().append('text').attr('class', 'txt').merge(weightText);
+    var weightText = g_ng.selectAll('.txt').data(ds)
+    weightText.exit().remove()
+    weightText = weightText
+      .enter()
+      .append('text')
+      .attr('class', 'txt')
+      .merge(weightText)
     weightText
       .attr('text-anchor', 'middle')
       .attr('alignment-baseline', 'middle')
       .text(function (d) {
-        return d.weight;
-      });
+        return d.weight
+      })
 
-    var node = g_ng
-      .selectAll('.circ')
-      .data(person)
-    node.exit().remove();
-    var extra_nodes=node.enter()
-      .append('g')
-      .attr('class', 'circ')
-      // .merge(node)
-    
+    var node = g_ng.selectAll('.circ').data(person)
+    node.exit().remove()
+    var extra_nodes = node.enter().append('g').attr('class', 'circ')
+    // .merge(node)
+
     extra_nodes.append('circle').attr('r', 20).style('fill', '#69b3a2')
 
     extra_nodes
@@ -585,36 +591,53 @@ function make_network (location, timestamp) {
       .style('fill', 'black')
       .style('font-size', '7px')
 
-    node=node.merge(extra_nodes)
-    node.style('cursor', 'pointer')
-      .on('click', function (event, d) {
-        d3.select('#histogram').selectAll('*').remove()
-        make_histogram(d.Name)
-        name_ts=d.Name
-        timestamp_ts=timestamp
-        location_ts=location
-      })
+    node = node.merge(extra_nodes)
+    node.style('cursor', 'pointer').on('click', function (event, d) {
+      d3.select('#histogram').selectAll('*').remove()
+      make_histogram(d.Name)
+      name_ts = d.Name
+      timestamp_ts = timestamp
+      location_ts = location
+    })
 
-    var simulation = d3.forceSimulation(person)
-    .force('link', d3.forceLink(ds).id(function (d) { return d.id; }))
-    .force('charge', d3.forceManyBody().strength(-400))
-    .force('center', d3.forceCenter(width_ng / 2, height_ng / 2))
-    .on('end', ticked);
-    simulation.alphaDecay(0.1).restart();
-    function ticked() {
+    var simulation = d3
+      .forceSimulation(person)
+      .force(
+        'link',
+        d3.forceLink(ds).id(function (d) {
+          return d.id
+        })
+      )
+      .force('charge', d3.forceManyBody().strength(-1500))
+      .force('center', d3.forceCenter(width_ng / 2, height_ng / 2))
+      .on('end', ticked)
+    simulation.alphaDecay(0.1).restart()
+    function ticked () {
       link
-        .attr('x1', function (d) { return d.source.x; })
-        .attr('y1', function (d) { return d.source.y; })
-        .attr('x2', function (d) { return d.target.x; })
-        .attr('y2', function (d) { return d.target.y; });
-    
+        .attr('x1', function (d) {
+          return d.source.x
+        })
+        .attr('y1', function (d) {
+          return d.source.y
+        })
+        .attr('x2', function (d) {
+          return d.target.x
+        })
+        .attr('y2', function (d) {
+          return d.target.y
+        })
+
       weightText
-        .attr('x', function (d) { return (d.source.x + d.target.x) / 2; })
-        .attr('y', function (d) { return (d.source.y + d.target.y) / 2; });
-    
+        .attr('x', function (d) {
+          return (d.source.x + d.target.x) / 2
+        })
+        .attr('y', function (d) {
+          return (d.source.y + d.target.y) / 2
+        })
+
       node.attr('transform', function (d) {
-        return 'translate(' + (d.x + 6) + ',' + (d.y - 6) + ')';
-      });
+        return 'translate(' + (d.x + 6) + ',' + (d.y - 6) + ')'
+      })
     }
   })
 }
