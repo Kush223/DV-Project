@@ -1,6 +1,7 @@
 let margin_hm, width_hm, height_hm, svg_hm, g_hm, svg_ts
 let margin_ng, width_ng, height_ng, svg_ng, g_ng, svg_hg, bar_svg
 let department_data, intermediate_emp_data, emp_data
+let name_ts,timestamp_ts,location_ts,Innerwidth,Innerheight,margin_ts,width_ts,height_ts
 document.addEventListener('DOMContentLoaded', function () {
   Promise.all([d3.csv('data/heatmap_data.csv')]).then(function (values) {
     heatmap_data = values[0]
@@ -20,6 +21,21 @@ document.addEventListener('DOMContentLoaded', function () {
       `translate(${width_bp / 2 }, ${height_bp / 2 + 100})`
     );
     svg_ts = d3.select('#time-series-chart')
+    width_ts = +svg_ts.style('width').replace('px', '')
+    height_ts = +svg_ts.style('height').replace('px', '')
+    // console.log(employee_name + ' ' + location + ' ' + targetDate)
+    margin_ts = { top: 60, right: 20, bottom: 35, left: 120 }
+
+    Innerwidth = width_ts - margin_ts.left - margin_ts.right
+    Innerheight = height_ts - margin_ts.top - margin_ts.bottom
+
+    svg_ts
+      .attr('width', Innerwidth)
+      .attr('height', Innerheight)
+      .append('g')
+      .attr('transform', `translate(${margin_ts.left},${margin_ts.top})`)
+
+    
     svg_hg = d3.select('#histogram')
     svg_hm = d3
       .select('#heatmap')
@@ -297,9 +313,9 @@ function draw_barchart() {
     )
     .range(d3.schemeSet3);
 
-  paths = bar_svg
+  var paths = bar_svg
     .append("g")
-    .selectAll("bars")
+    .selectAll(".bars")
     .data(emp_data)
     .join("path")
     .attr("class", "bars")
@@ -407,7 +423,7 @@ function draw_barchart() {
 
   //tooltip
   var Tooltip = d3
-    .selectAll("#inno")
+    .selectAll(".innovative-container")
     .style("left", "0px")
     .style("top", "0px")
     .append("div")
@@ -456,6 +472,14 @@ function draw_barchart() {
       Tooltip.style("opacity", 0).style("left", "0px").style("top", "0px");
     });
 }
+
+function amount_ts(){
+  TimeseriesAmount(name_ts,location_ts,timestamp_ts)
+}
+function freq_ts(){
+  TimeseriesFrequency(name_ts,location_ts,timestamp_ts)
+}
+
 function make_network (location, timestamp) {
   Promise.all([
     d3.csv('data/network_graph.csv'),
@@ -566,8 +590,9 @@ function make_network (location, timestamp) {
       .on('click', function (event, d) {
         d3.select('#histogram').selectAll('*').remove()
         make_histogram(d.Name)
-        // TimeseriesAmount(d.Name,location,timestamp)
-        TimeseriesFrequency(d.Name,location,timestamp)
+        name_ts=d.Name
+        timestamp_ts=timestamp
+        location_ts=location
       })
 
     var simulation = d3.forceSimulation(person)
@@ -858,20 +883,6 @@ function TimeseriesAmount (employee_name, location, targetDate) {
       // d.timestamp = new Date(d.timestamp); // Assuming timestamp is in a date format
     })
     targetDate = new Date(targetDate)
-    const width = +svg_ts.style('width').replace('px', '')
-    const height = +svg_ts.style('height').replace('px', '')
-    console.log(employee_name + ' ' + location + ' ' + targetDate)
-    const margin = { top: 60, right: 20, bottom: 35, left: 120 }
-
-    const Innerwidth = width - margin.left - margin.right
-    const Innerheight = height - margin.top - margin.bottom
-
-    svg_ts
-      .attr('width', Innerwidth)
-      .attr('height', Innerheight)
-      .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`)
-
     const minTimestamp = d3.min(data, d => new Date(d.timestamp))
     const maxTimestamp = d3.max(data, d => new Date(d.timestamp))
     const allDates = [minTimestamp, ...d3.timeDays(minTimestamp, maxTimestamp)]
@@ -943,18 +954,18 @@ function TimeseriesAmount (employee_name, location, targetDate) {
 
     svg_ts
       .append('g')
-      .attr('transform', `translate(${margin.left},${Innerheight})`)
+      .attr('transform', `translate(${margin_ts.left},${Innerheight})`)
       .call(d3.axisBottom(xScale))
 
     svg_ts
       .append('g')
-      .attr('transform', `translate(${margin.left}, 0)`)
+      .attr('transform', `translate(${margin_ts.left}, 0)`)
       .call(d3.axisLeft(yScale))
 
     svg_ts
       .append('text')
-      .attr('x', Innerwidth / 2 + margin.left) // Centered on the x-axis
-      .attr('y', Innerheight + margin.top) // Positioned below the x-axis
+      .attr('x', Innerwidth / 2 + margin_ts.left) // Centered on the x-axis
+      .attr('y', Innerheight + margin_ts.top) // Positioned below the x-axis
       .style('text-anchor', 'middle')
       .text('Timestamp')
 
@@ -962,8 +973,8 @@ function TimeseriesAmount (employee_name, location, targetDate) {
     svg_ts
       .append('text')
       .attr('transform', 'rotate(-90)')
-      .attr('x', -Innerheight / 2 - margin.top) // Centered on the y-axis
-      .attr('y', margin.left - 50) // Positioned to the left of the y-axis
+      .attr('x', -Innerheight / 2 - margin_ts.top) // Centered on the y-axis
+      .attr('y', margin_ts.left - 50) // Positioned to the left of the y-axis
       .style('text-anchor', 'middle')
       .text('Total Spending')
 
@@ -974,7 +985,7 @@ function TimeseriesAmount (employee_name, location, targetDate) {
       .attr('fill', 'none')
       .attr('stroke', 'steelblue')
       .attr('stroke-width', 2)
-      .attr('transform', `translate(${margin.left}, 0)`)
+      .attr('transform', `translate(${margin_ts.left}, 0)`)
       .attr('d', line)
 
     const highlightedDateStr = targetDate.toISOString().split('T')[0]
@@ -992,7 +1003,7 @@ function TimeseriesAmount (employee_name, location, targetDate) {
         .attr('cy', yScale(highlightedData.totalSpending))
         .attr('r', 5)
         .attr('fill', 'red')
-        .attr('transform', `translate(${margin.left}, 0)`)
+        .attr('transform', `translate(${margin_ts.left}, 0)`)
     }
   })
 }
@@ -1003,19 +1014,6 @@ function TimeseriesFrequency (employee_name, location, day) {
     data.forEach(function (d) {
       d.price = parseFloat(d.price)
     })
-    const width = +svg_ts.style('width').replace('px', '')
-    const height = +svg_ts.style('height').replace('px', '')
-
-    const margin = { top: 60, right: 20, bottom: 35, left: 120 }
-
-    const Innerwidth = width - margin.left - margin.right
-    const Innerheight = height - margin.top - margin.bottom
-
-    svg_ts
-      .attr('width', Innerwidth)
-      .attr('height', Innerheight)
-      .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`)
 
     const minTimestamp = d3.min(data, d => new Date(d.timestamp))
     const maxTimestamp = d3.max(data, d => new Date(d.timestamp))
@@ -1098,19 +1096,19 @@ function TimeseriesFrequency (employee_name, location, day) {
     // Draw the x-axis
     svg_ts
       .append('g')
-      .attr('transform', `translate(${margin.left},${Innerheight})`)
+      .attr('transform', `translate(${margin_ts.left},${Innerheight})`)
       .call(d3.axisBottom(xScale))
 
     // Draw the y-axis
     svg_ts
       .append('g')
-      .attr('transform', `translate(${margin.left}, 0)`)
+      .attr('transform', `translate(${margin_ts.left}, 0)`)
       .call(d3.axisLeft(yScale))
 
     svg_ts
       .append('text')
-      .attr('x', Innerwidth / 2 + margin.left) // Centered on the x-axis
-      .attr('y', Innerheight + margin.top) // Positioned below the x-axis
+      .attr('x', Innerwidth / 2 + margin_ts.left) // Centered on the x-axis
+      .attr('y', Innerheight + margin_ts.top) // Positioned below the x-axis
       .style('text-anchor', 'middle')
       .text('Timestamp')
 
@@ -1118,8 +1116,8 @@ function TimeseriesFrequency (employee_name, location, day) {
     svg_ts
       .append('text')
       .attr('transform', 'rotate(-90)')
-      .attr('x', -Innerheight / 2 - margin.top) // Centered on the y-axis
-      .attr('y', margin.left - 50) // Positioned to the left of the y-axis
+      .attr('x', -Innerheight / 2 - margin_ts.top) // Centered on the y-axis
+      .attr('y', margin_ts.left - 50) // Positioned to the left of the y-axis
       .style('text-anchor', 'middle')
       .text('Frequency')
 
@@ -1130,7 +1128,7 @@ function TimeseriesFrequency (employee_name, location, day) {
       .attr('fill', 'none')
       .attr('stroke', 'steelblue')
       .attr('stroke-width', 2)
-      .attr('transform', `translate(${margin.left}, 0)`)
+      .attr('transform', `translate(${margin_ts.left}, 0)`)
       .attr('d', line)
 
     const highlightedDateStr = day.toISOString().split('T')[0]
@@ -1148,7 +1146,7 @@ function TimeseriesFrequency (employee_name, location, day) {
         .attr('cy', yScale(highlightedData.frequency))
         .attr('r', 5)
         .attr('fill', 'red')
-        .attr('transform', `translate(${margin.left}, 0)`)
+        .attr('transform', `translate(${margin_ts.left}, 0)`)
     }
   })
 }

@@ -58,6 +58,15 @@
       </div>
     </div>
 
+    <div class="innovative-container m-4">
+      <div class="row">
+        <div class="col">
+          <h2 class="mb-4">Bar Pie Chart</h2>
+          <svg id="barpie"></svg>
+        </div>
+      </div>
+    </div>
+    
     <div class="network-container m-4">
       <div class="row">
         <div class="col">
@@ -86,17 +95,14 @@
               Dropdown button
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" onclick={}>Total Amount Spent</a></li>
-              <li><a class="dropdown-item" onclick={}>Frequency of Transactions</a>
+              <li><a class="dropdown-item" onclick=amount_ts()>Total Amount Spent</a></li>
+              <li><a class="dropdown-item" onclick=freq_ts()>Frequency of Transactions</a>
               </li>
             </ul>
           </div>
           <svg id="time-series-chart" width="1000px" height="500px"></svg>
         </div>
       </div>
-    </div>
-    <div id="inno">
-      <svg id="barpie"></svg>
     </div>
   </div>
 
